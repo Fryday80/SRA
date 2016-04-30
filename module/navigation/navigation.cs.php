@@ -18,7 +18,7 @@ class navigation {
 	private function build_main () {
 		$sql = 'SELECT * FROM `navigation` ORDER BY "position"';
 		$db_erg = mysqli_query( $db_link, $sql );
-		if ( ! $db_erg ) {die('Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link));}
+//		if ( ! $db_erg ) {die('Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link));}
 		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
 		{
 			$name = $daten['name'];
@@ -34,7 +34,7 @@ class navigation {
 	private function build_mem (){
 		$sql = "SELECT * FROM `membernav` ORDER BY 'position'";
 		$db_erg = mysqli_query( $db_link, $sql );
-		if ( ! $db_erg ) {echo 'Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link);}
+	//	if ( ! $db_erg ) {echo 'Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link);}
 		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
 		{
 			$name = $daten['name'];

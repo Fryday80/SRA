@@ -17,5 +17,6 @@ $show_navi->show_mem($navigation, $role);
 br();
 
 $auth_show->show_logout();
+print_r ($user);
 ?>
 </div>
