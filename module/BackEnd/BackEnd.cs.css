@@ -1,0 +1,22 @@
+.BackEnd {
+	backgroundcolor: black;
+	color: white;
+}
+.BEL {
+	float: left;
+	width: 15%;
+}
+.BEV {
+	float: right;
+	width: 85%;
+	backgroundcolor: white;
+	color: black;
+}
+.BER {
+	float: right;
+	width: 15%;
+}
+.BEM {
+	float: left;
+	width: 85%;
+}

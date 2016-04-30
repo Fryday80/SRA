@@ -1,0 +1,103 @@
+@CHARSET "utf-8";
+body {margin:0 auto;}
+
+
+#site {
+	width: 100%;
+	background-color: black;
+	margin:0 auto;
+	font-size: 14px;
+}
+
+#head {
+	width: 98%;
+	height: 91px;
+	background-image: url(../../Images/design/backgrounds/hb.png);
+	margin:0 auto;
+}
+
+.centered {
+	text-align: center;
+	margin:0 auto;
+}
+
+#foot{
+	width: 98%;
+	height: 70px;
+	background-image: url(../../Images/design/backgrounds/hb.png);
+	margin:0 auto;
+}
+
+#view1 {
+	width: 96%;
+	height: 450px;
+	background-color: blue;
+	background-image: url(../../Images/design/backgrounds/hb.png);
+	margin:0 auto;
+}
+
+#view2 {
+	width: 96%;
+	height: 200px;
+	background-color: blue;
+	background-image: url(../../Images/design/backgrounds/hb.png);
+	margin:0 auto;
+}
+
+#up {
+	width: 100%;
+	background-color: red;
+	align: center;
+}
+#down { 
+	width: 100%;
+	background-color: yellow;
+	align: center;
+}
+
+#left1, #left2 {
+	float: left;
+	width: 12%;
+	background-color: lightgrey;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#second1, #second2 {
+	width: 86%;
+	float: right;
+	margin:0 auto;
+}
+#right1, #right2{
+	float: right;
+	width: 14%;
+	background-color: grey;
+}
+
+#middle1, #middle2{
+	float: none;
+	width: 84%;
+	height: auto;
+	background-color: lightblue;
+}
+
+#down_left1, #down_left2{
+	float: left;
+	width: 49%;
+	background-color: lightgreen;
+}
+
+#down_right1, #down_right2{
+	float: right;
+	width: 49%;
+	background-color: lightgrey;
+}
+.clear {
+	clear: both;
+	height: 5px;
+}
+.black_deko{
+	height: 3px;
+	background-color: black;
+	margin:0 auto;
+}
