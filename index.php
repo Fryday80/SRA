@@ -11,7 +11,7 @@ if ($_GET['site'] !== 'admin')
 <body>
 <?php 
 jetzt ();
-include 'module/login/check.php';
+include 'module/login/authentication.php';
 
 
 ?>
