@@ -1,7 +1,7 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'module.inc.php'){exit('This page may not be called directly !'); }
 
-$handle = opendir('./module/');
+$handle = opendir('module/');
 	while (($file = readdir($handle)) !== false)
 	{
 		if ($file != "." && $file != "..")

@@ -10,9 +10,9 @@ $show_navi->show_main($navigation);
 </div>
 <div>
 <?php 
-$auth_show = new auth_shows();
-$auth_show->show_greetings();
-$auth_show->show_login();
+$auth_show = new auth_shows($auth);
+$auth_show->show_greetings($auth);
+$auth_show->show_login($auth);
 $show_navi->show_mem($navigation, $role);
 br();
 

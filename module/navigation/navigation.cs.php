@@ -1,7 +1,8 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'navigation.cs.php'){exit('This page may not be called directly !'); }
 
-
+// ja ohne debug ausgaben seh ich nix
+// dann füg ein... ich hab auch schon geschaut, das globale schreiben funzt au ned...
 class navigation {
 	protected $name, $link, $position, $perm;
 	public $view = array();

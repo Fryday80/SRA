@@ -1,4 +1,9 @@
 <?php
+
+//zum schnell testen
+$user = UserDataGrabber::getById(1); 
+print_r($user->name);
+
 ini_set('session.gc_maxlifetime', 3600);
 ini_set('session.gc_divisor', 1);
 session_start();
@@ -13,7 +18,9 @@ if ($_GET['site'] !== 'admin')
 jetzt ();
 $auth = new authentication();
 
-
+print_r ($_POST);
+br ();
+print_r ($_SESSION);
 ?>
 
 <div id="site">
