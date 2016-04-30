@@ -106,7 +106,7 @@ class auth_shows {
 	{
 		if ($valid_login !== 1)
 		{
-			echo '<form action="'.$this->action.'" method="post">';
+			echo '<form action="?site=profil" method="post">';
 			echo '<table width="100px"><tr><th>Benutzername</th></tr>';
 			echo '<tr><td><input type="text" name="user" placeholder="Benutzername" required /></td></tr>';
 			echo '<tr><th>Passwort</th></tr>';

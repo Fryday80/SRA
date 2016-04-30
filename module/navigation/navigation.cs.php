@@ -3,69 +3,74 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'navigation.cs.php'){exit('This pa
 
 
 class navigation {
-	protected $name, $link, $position;
-	protected $view;
+	protected $name, $link, $position, $perm;
+	public $view = array();
+	public $view_m = array();
 	
-	public function __construct($name, $link, $position)
+	public function __construct()
 	{
+		$this->view 	= array();
+		$this->view_m   = array();
+		$this->build_main();
+		$this->build_mem();
+	}
+	
+	private function build_main () {
+		$sql = 'SELECT * FROM `navigation` ORDER BY "position"';
+		$db_erg = mysqli_query( $db_link, $sql );
+		if ( ! $db_erg ) {die('Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link));}
+		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
+		{
+			$name = $daten['name'];
+			$link = $daten['link'];
+			$pos = $daten['position'];
 			
-		$this->name		= $name;
-		$this->link     = $title;
-		$this->position = $position;
-		$this->items    = array();
+			$this->view[$pos] = array( "name" => $name, "link" => $link);
+		}
+		mysqli_free_result( $db_erg );
+		
 	}
 	
-	function add ($name, $link, $position) {
-		$this->view[$position] = array( "name" => $name, "link" => $link);
+	private function build_mem (){
+		$sql = "SELECT * FROM `membernav` ORDER BY 'position'";
+		$db_erg = mysqli_query( $db_link, $sql );
+		if ( ! $db_erg ) {echo 'Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link);}
+		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
+		{
+			$name = $daten['name'];
+			$link = $daten['link'];
+			$pos = $daten['position'];
+			$perm = $daten['role'];
+			$this->view_m[$perm][$pos] = array( "name" => $name, "link" => $link);
+		}
 	}
 	
-	function show () {
-		ksort($this->view);
-		foreach ($this->view as $k => $v){
-			ksort($this->view["$k"]);
-			$lin = $this->view["$k"]["link"];
-			$nam = $this->view["$k"]["name"];
+	
+}
+
+class nav_show {
+
+	function show_main ($nav_object) {
+		ksort($nav_object->view);
+		foreach ($nav_object->view as $k => $v){
+			ksort($nav_object->view["$k"]);
+			$lin = $nav_object->view["$k"]["link"];
+			$nam = $nav_object->view["$k"]["name"];
 			echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
 		}
 	}
-}
-
-class memnav {
-	protected $name, $link, $position, $perm;
-	protected $view_m;
-
-	public function __construct($name, $link, $position, $perm)
-	{
-		$this->name		= $name;
-		$this->link     = $title;
-		$this->position = $position;
-		$this->perm		= $perm;
-		$this->items    = array();
-	}
-	
-	private function mkitem($name, $link, $position, $perm)
-	{
-		return array( "$position" => array( "name" => $name, "link" => $link));
-	}
-	
-	public function add ($name, $link, $position, $perm) 
-	{
-		//$this->view_m[$perm] = $this->mkitem($name, $link, $position, $perm);
-		$this->view_m[$perm][$position] = array( "name" => $name, "link" => $link);
-	}
 		
-	public function show ($perm) 
+	public function show_mem ($nav_object, $permission_power) 
 	{
-
 		$i=0;
-		
-		ksort($this->view_m);
-		for ($i=0; $i <= $perm; $i++){
-			ksort($this->view_m["$i"]);
-			foreach ($this->view_m[$i] as $k => $v)
+	
+		ksort($nav_object->view_m);
+		for ($i=0; $i <= $permission_power; $i++){
+			ksort($nav_object->view_m["$i"]);
+			foreach ($nav_object->view_m[$i] as $k => $v)
 			{
-				$lin = $this->view_m["$i"]["$k"]["link"];
-				$nam = $this->view_m["$i"]["$k"]["name"];
+				$lin = $nav_object->view_m["$i"]["$k"]["link"];
+				$nam = $nav_object->view_m["$i"]["$k"]["name"];
 				echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
 			}
 		}
