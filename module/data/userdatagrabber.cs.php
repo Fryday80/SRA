@@ -5,8 +5,8 @@ class UserDataGrabber extends DataGrabber {
 		parent::__construct();
 	}
 	//getByName()
-	static function getById(){
-		$data = $this->loadFromMYSQL("SELECT * FROM `login` WHERE `login` = '".$name."'", "UserData");
+	static function getById($id){
+		$data = $this->loadFromMYSQL($this->mysqlQuery, $this->dataType);
 		if (count($data) < 1) {
 			return false;
 		}
@@ -22,5 +22,3 @@ class UserData {
 
 	}
 }
-
-//weil die zusammengehören ok
