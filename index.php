@@ -6,21 +6,24 @@ session_start();
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
 //zum schnell testen
-$db = new db($db_link);
-$user = new UserDataGrabber("SELECT * FROM `DB2531041`.`login` "/*WHERE `id` = "*/);
-$user->getById(1);
+/*$db = new db($db_link);
+$user = new UserDataGrabber($db_link);
+$logindata = $user->getByName("Fryday");
+br(2);
 print_r($user);
-
+br(2);
+print_r ($logindata); */
+if (!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
 ?>
 <body>
 <?php 
 jetzt ();
-$auth = new authentication();
+$auth = new authentication($db_link);
 
 print_r ($_POST);
-br ();
+br (1);
 print_r ($_SESSION);
 ?>
 

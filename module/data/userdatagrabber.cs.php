@@ -1,27 +1,32 @@
 <?php
 class UserDataGrabber extends DataGrabber {
+protected $mysqlQuery;
 
-	function __construct($mysqlQuery) {
+	function __construct($db_link) {
 		$this->dataType = 'UserData';
-		$this->mysqlQuery = $mysqlQuery;
-		parent::__construct($this->dataType, $mysqlQuery);
+		$this->db_link = $db_link;
+		parent::__construct($this->dataType);
 	}
 	//getByName()
-	public function getById($id){
-		$this->mysqlQuery .= "'$id'";
-		$data = $this->loadFromMYSQL($this->mysqlQuery, $this->dataType, $db->db_link);
+	public function getByName($name){
+		$this->mysqlQuery = "SELECT * FROM `login` WHERE `login` = '$name'";
+		$data = $this->loadFromMYSQL($this->mysqlQuery, $this->dataType, $this->db_link);
 		if (count($data) < 1) {
 			return false;
-		}
+		}else {return $data;}
 	}
 }
 
 class UserData {
-	public $id;
-	public $name;
+	public $usr_id;
+	public $login;
 	public $role;
+	public $pw;
 
-	function __construct($id, $name, $role) {
-
+	function __construct() {
+		$this->usr_id = '';
+		$this->login = '';
+		$this->role = '';
+		$this->pw = '';
 	}
 }

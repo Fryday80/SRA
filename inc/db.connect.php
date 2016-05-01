@@ -9,6 +9,7 @@ $db_link = mysqli_connect (
                      MYSQL_DATENBANK, 
 		MYSQL_PORT
                     );
+mysqli_select_db($db_link, MYSQL_DATENBANK);
 mysqli_set_charset($db_link, 'utf8');
 
 if ( ! $db_link )

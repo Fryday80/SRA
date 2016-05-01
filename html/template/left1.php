@@ -1,6 +1,6 @@
 <div>
 <?php
-$navigation = new navigation();
+$navigation = new navigation($db_link);
 $show_navi = new nav_show();
 
 $show_navi->show_main($navigation);
@@ -13,8 +13,13 @@ $show_navi->show_main($navigation);
 $auth_show = new auth_shows($auth);
 $auth_show->show_greetings($auth);
 $auth_show->show_login($auth);
-$show_navi->show_mem($navigation, $role);
-br();
+
+// print_r ($auth->valid_user);
+// echo 'valid<br>';
+// print_r ($_SESSION);
+// echo 'ses<br>';
+$show_navi->show_mem($navigation, $_SESSION['role']);
+br(1);
 
 $auth_show->show_logout();
 print_r ($user);

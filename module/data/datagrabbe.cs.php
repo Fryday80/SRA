@@ -1,27 +1,25 @@
 <?php
 class DataGrabber {
 // 	private $dummyData;
-	protected $dataType, $mysqlQuery;
+	protected $dataType, $mysqlQuery, $db_erg;
 
-	function __construct($dataType, $mysqlQuery) {
-		$this->mysqlQuery = $mysqlQuery;
+	function __construct($dataType) {
+// 		$this->mysqlQuery = $mysqlQuery;
 // 		$this->dummyData = $dummyData;
 		$this->dataType = $dataType;
 		$this->db_erg = array();
 	}
 
-	function loadFromMYSQL($mysqlQuery, $dataTypek) {
-		$db->db_erg = mysqli_query($db->db_link, $mysqlQuery);
-		echo $db->db_erg.'____<br>';
-		$i = 0;
+	function loadFromMYSQL($mysqlQuery, $dataType, $db_link) {
+		$this->db_erg = mysqli_query($db_link, $mysqlQuery);
+		print_r ($this->db_erg); echo '____<br>';
 		$result = array(); 
-		while ($daten = mysqli_fetch_array($db->db_erg, MYSQLI_ASSOC)){
+		while ($daten = mysqli_fetch_array($this->db_erg, MYSQLI_ASSOC)){
 			$dataClass = new $dataType();
-			$result[$i] = $dataClass;
+			$result = $dataClass;
 			foreach ($daten as $key => $v){ 
-				$dataClass[$key] = $v;
+				$dataClass->$key = $v;
 			}
-			$i++;
 		}
 		return $result; 
 	}
