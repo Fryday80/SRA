@@ -1,10 +1,12 @@
-RewriteEngine On # Turn on the rewriting engine
+RewriteEngine on
+FallbackResource test.php
+##RewriteEngine on
+
+##RewriteCond %{REQUEST_FILENAME} !-f
+##RewriteRule ^(.*)/(.*)/(.*)/(.*)$ test.php?module=$1&controller=$2&action=$3&id=$4
 
 
-
-
-
-# nur zum nachlesen und für kompliziertere Menüs
+# nur zum nachlesen und fï¿½r kompliziertere Menï¿½s
 
 # RewriteRule ^Aktuelles/?$ site.php?site=aktuelles [NC,L] # Handle requests for "aktuelles"
 # RewriteRule ^Archiv/?$ site.php?site=archiv [NC,L]            #archivseite zusammengeklappt

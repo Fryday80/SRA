@@ -1,10 +1,9 @@
 <?php
-class UserDataGrabber extends DataGrabber {
+class UserDao extends DataGrabber {
 	protected $dataType = "UserData";
 	private $dummy;
 	
 	function __construct() {
-		parent::__construct();
 		//create dummy data
 		$this->dummy = array(new UserData(1, "Hans Peter", 1),
 							 new UserData(1, "George PenisWurst", 2));
@@ -14,8 +13,7 @@ class UserDataGrabber extends DataGrabber {
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			//$data = $this.getByValue("login", "id", $id);
-			$data = $this.getBySqlQuery("SELECT * FROM `login` WHERE `id` = '".$id."'");
+			$data = $this.getByValue("login", "id", $id);
 			if (count($data) < 1) {
 				return false;
 			}
