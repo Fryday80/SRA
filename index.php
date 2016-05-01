@@ -5,14 +5,7 @@ session_start();
 
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
-//zum schnell testen
-/*$db = new db($db_link);
-$user = new UserDataGrabber($db_link);
-$logindata = $user->getByName("Fryday");
-br(2);
-print_r($user);
-br(2);
-print_r ($logindata); */
+
 if (!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
@@ -21,9 +14,12 @@ if ($_GET['site'] !== 'admin')
 <?php 
 jetzt ();
 $auth = new authentication($db_link);
-
+$navigation = new navigation($db_link);
+$show_navi = new nav_show();
+echo 'bugfix<br>';
 print_r ($_POST);
 br (1);
+echo 'bugfix<br>';
 print_r ($_SESSION);
 ?>
 

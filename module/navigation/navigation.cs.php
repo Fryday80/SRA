@@ -1,8 +1,6 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'navigation.cs.php'){exit('This page may not be called directly !'); }
 
-// ja ohne debug ausgaben seh ich nix
-// dann füg ein... ich hab auch schon geschaut, das globale schreiben funzt au ned...
 class navigation {
 	protected $name, $link, $position, $perm, $db_link;
 	public $view = array();
@@ -64,11 +62,11 @@ class nav_show {
 		
 	public function show_mem ($nav_object, $permission_power) 
 	{
-		$i=0;
-	
 		ksort($nav_object->view_m);
+// 		print_r ($nav_object->view_m);
+		
 		for ($i=0; $i <= $permission_power; $i++){
-			if ($nav_object->view_m[$i]){
+			if (!empty($nav_object->view_m[$i])){
 				ksort($nav_object->view_m["$i"]);
 				foreach ($nav_object->view_m[$i] as $k => $v)
 				{

@@ -1,12 +1,31 @@
 <?php 
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'indexA.php')
 {exit('This page may not be called directly !'); }
-if ($_SESSION['user_role'] !== '6'){exit ('Zugriff nicht erlaubt');}
+if ($_SESSION['role'] !== '6' && $_SESSION['user_login'] !== 1){exit ('Zugriff nicht erlaubt');}
 
 ?>
 <body>
 <?php 
 jetzt ();
+// print_r ($_POST);
+if (isset ($_POST['selector'])){$selector = $_POST['selector'];}
+if (isset ($_POST['select'])){$select = $_POST['select'];}
+if (isset ($_POST['save']) && ($_POST['save'] == 'speichern')){
+		if (!isset ($_POST['new_name'])){
+			$datei = $_POST['path'].$_POST['select'];
+		}
+		else {
+			$file_content = $_POST['file'];
+			$new_name = $_POST['new_name'];
+			$file_ending = $_POST['new_name_file_ex'];
+			$new_path = $_POST['path'];
+			
+			$datei = $new_path.$new_name.$file_ending;
+		}
+	$filehandler = fopen("$datei", "w");
+	$update = fwrite($filehandler, $_POST['file']);
+	fclose($filehandler);
+}
 
 ?>
 
@@ -18,23 +37,21 @@ jetzt ();
 		<div id="up">
 			<div id="left1">
 				<?php
-				$sel = $_POST['selector'];
-				$menu = array ("css", "module", "content", "mainnav", "memnav", "Members", "Templates");
+				$menu = array ("index", "css", "Templates", "mainnav", "memnav", "content", "members"  );
 				foreach ($menu as $items)
 				{
 					echo '<form action="?site=admin" method="POST">';
 					echo '<input type="submit" name="selector" value="'.$items.'" />';
 					echo '</form>';
 				}
-				switch ($_POST['selector'])
+			if (isset ($selector)){	
+				switch ($selector)
 				{
 					case 'css':
 						$p = 'html/css/';
-						$sel = $_POST['selector'];
 						break;
 					case 'module':
 						$p = 'module/';
-						$sel = $_POST['selector'];
 						br (2);
 						$dir = scandir($p);
 						foreach ($dir as $files)
@@ -42,7 +59,7 @@ jetzt ();
 							if ($files !== "." && $files !== "..")
 							{
 								echo '<form action="?site=admin" method="POST">';
-								echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
+								echo '<input type="hidden" name="selector" value="'.$selector.'"/>';
 								echo '<input type="hidden" name="path" value="'.$p.'"/>';
 								echo '<input type="submit" name="modul" value="'.$files.'" />';
 								echo '</form>';
@@ -51,29 +68,28 @@ jetzt ();
 						break;
 					case 'content':
 						$p = 'html/content/';
-						$sel = $_POST['selector'];
 						break;
 					case 'mainnav':
 						$p = 'module/navigation/backend.fry.php';
-						$sel = $_POST['selector'];
 						$nav = 'main';
 						break;
 					case 'memnav':
 						$p = 'module/navigation/backend.fry.php';
-						$sel = $_POST['selector'];
 						$nav = 'mem';
 						break;
-					case 'Members':
-						$p = 'html/css/';
-						$sel = $_POST['selector'];
+					case 'members':
+						$p = 'module/members/members.fry.php';
 						break;
 					case 'Templates':
 						$p = 'html/template/';
-						$sel = $_POST['selector'];
+						break;
+					case 'index':
+						$p = './';
 						break;
 					default:
 					break;
 				}
+			}
 				br(3);
 				echo '<a href="?site=profil"> zur Homepage</a>';
 				?>
@@ -81,25 +97,26 @@ jetzt ();
 			<div id="second1">
 				<div id="right1">
 					<?php
-					switch ($_POST['selector'])
+				if (isset ($selector)){
+					switch ($selector)
 					{
 						case 'css':
 						case 'Templates':
 						case 'content':
 					
 							echo '<form action="?site=admin" method="POST">';
-							echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
+							echo '<input type="hidden" name="selector" value="'.$selector.'"/>';
 							echo '<input type="hidden" name="path" value="'.$p.'"/>';
 							echo '<input type="submit" name="select" value="Neu" />';
 							echo '</form>';
-							br ();
+							br (1);
 							$dir = scandir($p);
 							foreach ($dir as $files)
 							{
 								if ($files !== "." && $files !== "..")
 								{
 									echo '<form action="?site=admin" method="POST">';
-									echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
+									echo '<input type="hidden" name="selector" value="'.$selector.'"/>';
 									echo '<input type="hidden" name="path" value="'.$p.'"/>';
 									echo '<input type="submit" name="select" value="'.$files.'" />';
 									echo '</form>';
@@ -117,36 +134,44 @@ jetzt ();
 								echo "$nr = $desc<br>";
 							}
 							break;
+						case 'index':
+							echo '<form action="?site=admin" method="POST">';
+							echo '<input type="hidden" name="selector" value="'.$selector.'"/>';
+							echo '<input type="hidden" name="path" value="'.$p.'"/>';
+							echo '<input type="submit" name="select" value="index.php" />';
+							echo '</form>';
 												
 					}
+				}
 					?>
 				</div>
 				<div id="middle1" Style="background: none;">
 <?php
-				switch ($_POST['selector'])
+			if (isset($selector)){
+				switch ($selector)
 				{
+					case 'members':
 					case 'mainnav':
 					case 'memnav':
 						include "$p";
 						break;
 					default:
-					$datei = $_POST['path'].$_POST['select'];
-					if (isset ($_POST['select']))
+					
+					if (isset ($select))
 					{
-						$dat = $_POST['select'];
-						if ($_POST['select']== 'Neu')
-						{
-							$datei = $_POST['path'].$_POST['new_name'].'.'.$sel;
-						}
 						
-						if ($_POST['save'] == 'speichern'){
-							$filehandler = fopen("$datei", "w");
-							$update = fwrite($filehandler, $_POST['file']);
+						if ($select == 'Neu')
+						{
+							$text = '';
+							echo 'Neue Datei erstellen';
+							
+						}else{
+							$datei = $p.$select;
+							$filehandler = fopen("$datei", "r");
+							$text = fread($filehandler, filesize($datei));
+							echo $datei;
 							fclose($filehandler);
 						}
-						$filehandler = fopen("$datei", "r");
-						$text = fread($filehandler, filesize($datei));
-						echo $p.$dat;
 ?>
 						<form action="?site=admin" method="POST">
 						<textarea cols="100" rows="24" name="file">
@@ -155,20 +180,24 @@ jetzt ();
 ?>
 						</textarea>
 						<input type="hidden" name="path" value="<?php echo $p; ?>"/>
-						<input type="hidden" name="selector" value="<?php echo $sel; ?>"/>
-						<input type="hidden" name="select" value="<?php echo $dat; ?>"/>
+						<input type="hidden" name="selector" value="<?php echo $selector; ?>"/>
+						<input type="hidden" name="select" value="<?php echo $select; ?>"/>
 						<?php 
-						if ($_POST['select']== 'Neu')
+						
+						if ($select == 'Neu')
 						{
-							echo '<input type="text" name="new_name" placeholder="Neuer Name"/>';
-							switch ($sel)
+							switch ($selector)
 							{
 								case 'content':
 									$fileex = '.php';
+									echo '<input type="text" name="new_name" placeholder="Neuer Name"/>';
+									echo '<input type="hidden" name="new_name_file_ex" value="'.$fileex.'"/>';
 									echo $fileex;
 								break;
 								default:
-									echo '.'.$sel;
+									echo '<input type="text" name="new_name" placeholder="Neuer Name"/>';
+									echo '<input type="hidden" name="new_name_file_ex" value="'.$selector.'"/>';
+									echo '.'.$selector;
 							}
 						}
 						?>
@@ -177,10 +206,10 @@ jetzt ();
 <?php 
 						break;
 						}
+				}
 						?>
 <?php 
-					fclose($filehandler);
-					}
+						}
 ?>
 				</div>
 			</div>

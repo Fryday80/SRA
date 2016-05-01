@@ -8,7 +8,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'login.cs.php'){exit('This page ma
 class authentication{
 	protected $input_user, $input_pw, $trans_in, $trans_out, $pw, $no_change, $user_intern, $dataGrabber;
 	public $usr = array ();
-	public $valid_user, $db_link;
+	public $valid_user, $db_link, $action;
 	
 	public function __construct($db_link)
 	{
@@ -18,22 +18,27 @@ class authentication{
 		if (isset ($_POST['logout'])){$this->trans_out = $_POST['logout'];}
 		if (!isset ($_POST['login']) OR !isset ($_POST['logout'])){$this->no_change = 1;}
 // 		if (isset ($logindata)) {$this->dataGrabber = $logindata;}
+		$this->action = $_SERVER['PHP_SELF'];
 		$this->db_link = $db_link;
 // 		print_r($_POST);
 		$this->auth();
 	}
 	public function auth() {
-		//später
-// 		echo $this->input_user;
-		$this->findUser("$this->input_user");
-		$this->comparePass($this->input_pw, $this->user_intern->pw);
- 		$this->set_vars();
-		//hier mal ausgeben was sache ist
-		print_r ("#######");
+		if (isset ($this->trans_in)){
+			$this->findUser("$this->input_user");
+			$this->comparePass($this->input_pw, $this->user_intern->pw);
+ 			$this->set_vars();
+		}
+		elseif (isset ($this->trans_out)){
+			$this->logout();
+		}else{
+			
+		}
+// 		print_r ("#######");
 	}
 	
 	public function hasPower($power) {
-		if ($this->user['role'] >= $power) {
+		if ($this->user_intern->role >= $power) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -66,7 +71,7 @@ class authentication{
 // 		global $valid_login, $user, $role, $user_id;
 		if ($this->valid_user == 1)
 		{
-			echo 'success<br>';
+// 			echo 'success<br>';
 			$_SESSION['user_login'] = $this->valid_user;			
 			foreach ($this->user_intern as $k => $v){
 			$_SESSION["$k"] = $v;
@@ -91,10 +96,11 @@ class authentication{
 	}
 	
 	public function logout() {
-		if ($_POST['logout'] == 'logout'){
+		$_SESSION['user_login'] = 0;
 			session_destroy();
-			unset ($valid_login, $user, $role, $user_id);
-		}
+// 			echo ' kaputttttttt';
+// 			unset ($valid_login, $user, $role, $user_id);
+		
 	}
 	
 }
@@ -105,7 +111,7 @@ class auth_shows {
 	{
 		if ($_SESSION['user_login'] == 1)
 		{
-			echo '<form action="'.$this->action.'" method="post">';
+			echo '<form action="'.$auth_object->action.'" method="post">';
 			echo '<input type="Submit" style="background-color:lightgreen" name="logout" value="logout" />';
 			echo '</form>';
 		}
