@@ -4,6 +4,9 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'functions.inc.php'){exit('This pa
 function jetzt () {
 
 	global $date, $dateTimestamp, $day, $month, $year;
+	date_default_timezone_set("Europe/Berlin");
+	$explode = array();
+	$explosion = array();
 	
 	$date = date('d-m-Y H:i:s');
 	$dateTimestamp = strtotime($date);

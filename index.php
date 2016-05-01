@@ -6,9 +6,10 @@ session_start();
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
 //zum schnell testen
-$user = new UserDataGrabber("UserData", "SELECT * FROM `login` WHERE `id` = '".$id."'");
+$db = new db($db_link);
+$user = new UserDataGrabber("SELECT * FROM `DB2531041`.`login` "/*WHERE `id` = "*/);
 $user->getById(1);
-print_r($user->name);
+print_r($user);
 
 if ($_GET['site'] !== 'admin')
 {

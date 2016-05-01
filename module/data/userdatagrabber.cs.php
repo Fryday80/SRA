@@ -1,12 +1,15 @@
 <?php
 class UserDataGrabber extends DataGrabber {
 
-	function __construct() {
-		parent::__construct();
+	function __construct($mysqlQuery) {
+		$this->dataType = 'UserData';
+		$this->mysqlQuery = $mysqlQuery;
+		parent::__construct($this->dataType, $mysqlQuery);
 	}
 	//getByName()
-	static function getById($id){
-		$data = $this->loadFromMYSQL($this->mysqlQuery, $this->dataType);
+	public function getById($id){
+		$this->mysqlQuery .= "'$id'";
+		$data = $this->loadFromMYSQL($this->mysqlQuery, $this->dataType, $db->db_link);
 		if (count($data) < 1) {
 			return false;
 		}

@@ -4,7 +4,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'module.inc.php'){exit('This page 
 $handle = opendir('module/');
 	while (($file = readdir($handle)) !== false)
 	{
-		if ($file != "." && $file != "..")
+		if ($file != "." && $file != ".." && $file !== 'zzznew')
 		{
 			include ('module/'.$file.'/'.$file.'.cs.php');
 		}
