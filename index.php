@@ -3,11 +3,14 @@ ini_set('session.gc_maxlifetime', 3600);
 ini_set('session.gc_divisor', 1);
 session_start();
 
+//ich hab den db.connect in,clude auskomentiert zum testen
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
-//zum schnell testen
-$user = new UserDataGrabber("UserData", "SELECT * FROM `login` WHERE `id` = '".$id."'");
-$user->getById(1);
+
+
+//wenn man jetzt die daten braucht
+$userGrabber = new UserDataGrabber();
+$user = $userGrabber->getById(1);
 print_r($user->name);
 
 if ($_GET['site'] !== 'admin')
