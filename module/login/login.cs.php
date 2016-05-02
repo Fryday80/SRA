@@ -12,21 +12,16 @@ class authentication{
 	
 	public function __construct()
 	{
-		$input_user = $_POST['user'];
+		$this->input_user = $_POST['user'];
 		$this->input_pw = $_POST['pw'];
-		$trans_in = $_POST['login']; //hier ist quasi der check ob login oder logout gedrückt wird wie wird die im form gesetzt
-		$trans_out = $_POST['logout'];
-		print_r($_POST);
+		$this->trans_in = $_POST['login'];
+		$this->trans_out = $_POST['logout'];
 		$this->auth();
 	}
 	public function auth() {
-		//später
 		$this->findUser($this->input_user);
-		$this->comparePass($_POST['pw'], $pw);
+		$this->comparePass($_POST['pw'], $this->pw);
 		$this->set_vars();
-		//hier mal ausgeben was sache ist
-		print_r ("#######");
-		print_r ($usr);
 	}
 	
 	public function hasPower($power) {
@@ -37,25 +32,14 @@ class authentication{
 		}
 	}
 	private function findUser ($name){
-		// mir fält gerade auf, das wird nur ausgeführt, wenn man login drückt... das muss ja immer ausgeführt werden
-		//if (isset($this->trans_in)){
-			$sql = "SELECT * FROM `login` WHERE `login` = '".$name."'";
-			$db_erg = mysqli_query( $db_link, $sql );
-			while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
-			{     /// aber warum??? rausfinden
-			print_r("db ->");
-			print_r($daten);
-				$pw = $daten['pw'];
-				print_r("__".$pw);
-				$this->usr = array (
-						"user" => $daten['login'],
-						"user_id" => $daten['usr_id'],
-						"role" => $daten['role']
-				);
-			}
-		//}else{
-		//	echo 'Login nicht gesetzt';
-		//}
+		$userDAO = new UserDAO();
+		$userVO = $userDAO->getByName("login", $name);
+		if ($userVO) {
+			$this->pw = $userVO->pw;
+			$this->usr = $userVO;
+		} else {
+			//@todo name not found
+		}
 	}
 	private function comparePass ($pw_set, $pw_db){
 		$hash = hash(md5, $pw_set);
@@ -69,15 +53,15 @@ class authentication{
 	
 	private function set_vars (){
 		global $valid_login, $user, $role, $user_id;
-		if ($this->valid_user == 1)
-		{
-			$valid_login= $this->valid_user;
+		if ($this->valid_user == 1) {
+			$valid_login = $this->valid_user;
 			$_SESSION['user_login'] = $this->valid_user;
 			foreach ($this->usr as $k => $v)
-			$_SESSION["$k"] = $v;
+				$_SESSION["$k"] = $v;
 			$$k = $v; //hier sllte ja $user gesetzt werden
 		}
-		$sql = "SELECT * FROM `member` WHERE usr_id = '".$user['user_id']."'";
+			/*
+		$sql = "SELECT * FROM `member` WHERE usr_id = '".$user['id']."'";
 		$db_erg = mysqli_query( $db_link, $sql );
 		//if ( ! $db_erg ) {('Ung&uuml;ltige Login-Abfrage2: ' .mysqli_errno($db_link));}
 		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
@@ -90,7 +74,7 @@ class authentication{
 				}
 			}
 		}
-		
+		*/
 	}
 	
 	public function logout() {
@@ -106,7 +90,7 @@ class auth_shows {
 	
 	public function show_logout ($auth_object) 
 	{
-		if ($auth_object->user_login == 1)
+		if ($auth_object->valid_user == 1)
 		{
 			echo '<form action="'.$this->action.'" method="post">';
 			echo '<input type="Submit" style="background-color:lightgreen" name="logout" value="logout" />';
@@ -116,7 +100,7 @@ class auth_shows {
 
 	public function show_login ($auth_object) 
 	{
-		if ($auth_object->user_login !== 1)
+		if ($auth_object->valid_user !== 1)
 		{
 			echo '<form action="?site=profil" method="post">';
 			echo '<table width="100px"><tr><th>Benutzername</th></tr>';
@@ -130,7 +114,7 @@ class auth_shows {
 
 	public function show_greetings ($auth_object)
 	{
-		if ($auth_object->user_login == 1)
+		if ($auth_object->valid_user == 1)
 		{
 			echo 'Hallo '.$user;
 		}

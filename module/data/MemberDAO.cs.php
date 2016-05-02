@@ -1,5 +1,5 @@
 <?php
-class MemberDataGrabber extends DataGrabber {
+class MemberDAO extends DataGrabber {
 	protected $dataType = "MemberData";
 	private $dummy;
 
@@ -13,7 +13,7 @@ class MemberDataGrabber extends DataGrabber {
 	}
 }
 
-class MemberData {
+class MemberVO {
 	public $id;
 	public $name;
 

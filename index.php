@@ -7,11 +7,6 @@ session_start();
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
 
-//wenn man jetzt die daten braucht
-$userGrabber = new UserDataGrabber();
-$user = $userGrabber->getById(1);
-print_r($user->name);
-
 if ($_GET['site'] !== 'admin')
 {
 ?>

@@ -29,5 +29,4 @@ define ( 'MYSQL_BENUTZERA', 'U2452621');        // User
 define ( 'MYSQL_KENNWORTA', 'dbsra2016');    // Password
 define ( 'MYSQL_DATENBANKA', 'DB2452621');
 */
-?>
 
