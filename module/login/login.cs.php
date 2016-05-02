@@ -23,7 +23,7 @@ class authentication{
 		$this->comparePass($_POST['pw'], $this->pw);
 		$this->set_vars();
 	}
-	
+
 	public function hasPower($power) {
 		if ($this->user['role'] >= $power) {
 			return TRUE;
@@ -33,7 +33,7 @@ class authentication{
 	}
 	private function findUser ($name){
 		$userDAO = new UserDAO();
-		$userVO = $userDAO->getByName("login", $name);
+		$userVO = $userDAO->getByName($name);
 		if ($userVO) {
 			$this->pw = $userVO->pw;
 			$this->usr = $userVO;
