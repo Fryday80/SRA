@@ -1,15 +1,17 @@
 <?php
-class UserDAO extends DataGrabber {
+class UserDAO extends DataAccessObject {
 	protected $dataType = "UserVO";
 	protected $tableName = "login";
 	private $dummy;
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(1, "peter", 2, "202cb962ac59075b964b07152d234b70"),
+		$this->dummy = array(new UserVO(1, "peter", 4, "202cb962ac59075b964b07152d234b70"),
 							 new UserVO(2, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
 	}
-	//getByName()
+	/*
+	 * return UserVO
+	 */
 	function getById($id){
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
@@ -21,7 +23,11 @@ class UserDAO extends DataGrabber {
 			return $data[0];
 		}
 	}
+	/*
+	 * return UserVO
+	 */
 	function getByName($name) {
+		$this->getById(1);
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
@@ -35,14 +41,13 @@ class UserDAO extends DataGrabber {
 	}
 }
 
-class UserVO {
-	public $id;
+class UserVO extends ValueObject {
 	public $name;
 	public $role;
 	public $pw;
 
-	function __construct($id = null, $name = null, $role = null, $pw = null) {
-		$this->id = $id;
+	function __construct($id, $name, $role, $pw) {
+		parent::setID($id);
 		$this->name = $name;
 		$this->role = $role;
 		$this->pw = $pw;
