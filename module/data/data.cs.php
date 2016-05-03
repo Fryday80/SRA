@@ -1,10 +1,12 @@
 <?php
 define("DATA_MOCKING", true);
 $path = 'module/data/';
-include $path.'DataAccessObject.cs.php';
-include $path.'UserDAO.cs.php';
-include $path.'RolesDAO';
-include $path.'MembersDAO';
-include $path.'WappenDAO';
+$classExtention = '.cs.php';
+$classArray = array ("UserDAO", "RolesDAO", "MembersDAO", "MembersDAO");
 
-DataGrabber::init();
+foreach ($classArray as $key => $classtype){
+    include_once $path.$classtype.$classExtention;
+}
+
+
+//UserDAO::init();

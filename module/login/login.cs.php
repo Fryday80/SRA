@@ -12,26 +12,26 @@ class authentication{
 	
 	public function __construct()
 	{
-		$this->input_user = $_POST['user'];
-		$this->input_pw = $_POST['pw'];
-		$this->trans_in = $_POST['login'];
-		$this->trans_out = $_POST['logout'];
-		$this->auth();
+		if (isset ($_POST)) {
+			if (isset($_POST['login'])) {
+				$this->input_user = $_POST['user'];
+				$this->input_pw = $_POST['pw'];
+				$this->trans_in = $_POST['login'];
+				$this->auth();
+			}
+			if (isset($_POST['logout'])) {
+				$this->trans_out = $_POST['logout'];
+				$this->logout();
+			}
+		}
 	}
-	public function auth() {
+	protected function auth() {
 		$this->findUser($this->input_user);
 		$this->comparePass($_POST['pw'], $this->pw);
 		$this->set_vars();
 	}
 
-	public function hasPower($power) {
-		if ($this->user['role'] >= $power) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-	private function findUser ($name){
+	protected function findUser ($name){
 		$userDAO = new UserDAO();
 		$userVO = $userDAO->getByName($name);
 		if ($userVO) {
@@ -41,21 +41,20 @@ class authentication{
 			//@todo name not found
 		}
 	}
-	private function comparePass ($pw_set, $pw_db){
-		$hash = hash(md5, $pw_set);
+	protected function comparePass ($pw_set, $pw_db){
+		$hash = hash('md5', $pw_set);
 		if ($pw_db == $hash)
 		{
 			print_r("pass correct \n");
 			$this->valid_user = 1;
-			//unset ($this->pw);
 		}
 	}
 	
-	private function set_vars (){
+	protected function set_vars (){
 		global $valid_login, $user, $role, $user_id;
 		if ($this->valid_user == 1) {
 			$valid_login = $this->valid_user;
-			$_SESSION['user_login'] = $this->valid_user;
+			$_SESSION['valid_login'] = $this->valid_user;
 			foreach ($this->usr as $k => $v)
 				$_SESSION["$k"] = $v;
 			$$k = $v; //hier sllte ja $user gesetzt werden
@@ -77,7 +76,7 @@ class authentication{
 		*/
 	}
 	
-	public function logout() {
+	protected function logout() {
 		if ($_POST['logout'] == 'logout'){
 			session_destroy();
 			unset ($valid_login, $user, $role, $user_id);

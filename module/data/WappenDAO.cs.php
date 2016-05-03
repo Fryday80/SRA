@@ -1,6 +1,6 @@
 <?php
 class WapenDAO extends DataAccessObject {
-	protected $dataType = "UserVO";
+	protected $dataType = "WappenVO";
 	protected $tableName = "wappenrolle";
 	private $dummy;
 	
@@ -25,7 +25,8 @@ class WapenDAO extends DataAccessObject {
 
 	}
 
-	public function getRolle(){
+	public function getRolle()
+	{
 		if (DATA_MOCKING) {
 			return $this->dummy;
 		} else {
@@ -34,6 +35,8 @@ class WapenDAO extends DataAccessObject {
 				return false;
 			}
 			return $data[0];
+		}
+	}
 	/*
 	 * return UserVO
 	 */
@@ -51,7 +54,7 @@ class WapenDAO extends DataAccessObject {
 	}
 }
 
-class WappenVO extends ValueObject {  ///warum hat der n problem mim namen??
+class WappenVO extends ValueObject { 
 	public $name;
 	public $role;
 	public $pw;
@@ -63,3 +66,4 @@ class WappenVO extends ValueObject {  ///warum hat der n problem mim namen??
 		$this->pw = $pw;
 	}
 }
+		?>

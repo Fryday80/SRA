@@ -6,7 +6,7 @@ session_start();
 //ich hab den db.connect in,clude auskomentiert zum testen
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
-
+if(!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
 ?>

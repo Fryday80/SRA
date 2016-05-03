@@ -1,10 +1,13 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'functions.inc.php'){exit('This page may not be called directly !'); }
 
+function bugfix (){
+	echo 'bugfix';
+}
 function jetzt () {
 
 	global $date, $dateTimestamp, $day, $month, $year;
-	
+	date_default_timezone_set('Europe/Berlin');
 	$date = date('d-m-Y H:i:s');
 	$dateTimestamp = strtotime($date);
 	$explode = explode(" ", $date);
@@ -60,7 +63,7 @@ function get_html_files (){
 }
 
 
-function br ($br)
+function br ($br=1)
 {
 	if (isset ($br)){
 		for ($i = 1; $i <= $br; $i++){
