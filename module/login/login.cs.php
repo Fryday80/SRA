@@ -51,9 +51,8 @@ class authentication{
 	}
 	
 	protected function set_vars (){
-		global $valid_login, $user, $role, $user_id;
+
 		if ($this->valid_user == 1) {
-			$valid_login = $this->valid_user;
 			$_SESSION['valid_login'] = $this->valid_user;
 			foreach ($this->usr as $k => $v)
 				$_SESSION["$k"] = $v;
@@ -83,15 +82,14 @@ class auth_shows {
 
 	public function show_login ($auth_object) 
 	{
-		if ($auth_object->valid_user !== 1)
-		{
-			echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">';
+		if ($auth_object->valid_user !== 1) {
+			echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
 			echo '<table width="100px"><tr><th>Benutzername</th></tr>';
 			echo '<tr><td><input type="text" name="user" placeholder="Benutzername" required /></td></tr>';
 			echo '<tr><th>Passwort</th></tr>';
 			echo '<tr><td><input type="password" name="pw" placeholder="Passwort" required /></td></tr></table>';
 			echo '<input type="hidden" name="login" value="login"><input type="Submit" style="background-color:lightgreen" value="login" />';
-			echo '</form>'; // ah verstehe aber warum das ? weil sich type submit dabei komisch verhält ... hatte ich auch mal aber kann mich nichmehr genau errinern okprobiers
+			echo '</form>';
 		}
 	}
 
