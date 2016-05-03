@@ -70,7 +70,7 @@ class DataAccessObject
 				if ($key === "id") continue; ///was tut das hier?
 				$dataClass[$key] = $v;
 			}
-			$i++;  //wofür hast du i eingeführt?
+			$i++; 
 		}
 		return $result;
 	}

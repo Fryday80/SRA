@@ -11,9 +11,10 @@ class NavigationDAO extends DataAccessObject{
 		//create dummy data
 		$this->dummy = array(new UserVO(1, 1, "Profil", "?site=profil"),
 			new UserVO(2, 2, "dummy","?site=FuehrtZuNix"));
+		$this->getNavigation();
 	}
 
-	public function getNavigation(){
+	private function getNavigation(){
 		if (DATA_MOCKING) {
 			return $this->dummy[0];}
 		else {
@@ -51,9 +52,9 @@ class MembersNavigationDAO extends DataAccessObject{
 	}
 }
 class NavVO extends ValueObject {
+	public $position;
 	public $name;
-	public $role;
-	public $pw;
+	public $link;
 
 	function __construct($id, $name, $role, $pw) {
 		parent::setID($id);
@@ -62,7 +63,23 @@ class NavVO extends ValueObject {
 		$this->pw = $pw;
 	}
 }
+//@ hier wäre der Aufbau   		$position => 	$link = xx
+//												$name = yy       // nötig
+class MemNavVO extends ValueObject {
+	public $role;
+	public $position;
+	public $name;
+	public $link;
 
+	function __construct($id, $name, $role, $pw) {
+		parent::setID($id);
+		$this->name = $name;
+		$this->role = $role;
+		$this->pw = $pw;
+	}
+}
+//@ hier wäre der Aufbau $role =>$position => 	$link = xx
+//												$name = yy       // nötig
 
 
 
@@ -83,8 +100,10 @@ class nav_show {
 	public function show_mem ($nav_object, $permission_power) 
 	{
 		$i=0;
+		//@ hier wäre der Aufbau $role =>$position => 	$link = xx
+		//												$name = yy       // nötig
 	
-		ksort($nav_object->view_m);
+		ksort($nav_object->view_m); //@nach role sortieren 0->6
 		for ($i=0; $i <= $permission_power; $i++){
 			ksort($nav_object->view_m["$i"]);
 			foreach ($nav_object->view_m[$i] as $k => $v)

@@ -18,9 +18,11 @@ $nav= new NavigationDAO();
 print_r ($nav);
 br();
 bugfix();
-print_r ($_POST);
-br ();
-print_r ($_SESSION);
+foreach($nav as $key => $v){
+	echo $key.' = '.$v;
+	br();
+}
+
 ?>
 
 <div id="site">
