@@ -57,23 +57,7 @@ class authentication{
 			$_SESSION['valid_login'] = $this->valid_user;
 			foreach ($this->usr as $k => $v)
 				$_SESSION["$k"] = $v;
-			$$k = $v; //hier sllte ja $user gesetzt werden
 		}
-			/*
-		$sql = "SELECT * FROM `member` WHERE usr_id = '".$user['id']."'";
-		$db_erg = mysqli_query( $db_link, $sql );
-		//if ( ! $db_erg ) {('Ung&uuml;ltige Login-Abfrage2: ' .mysqli_errno($db_link));}
-		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
-		{
-			foreach ($daten as $k => $v)
-			{
-				if ($k !== "id" && $k !== "usr_id")
-				{
-					$this->usr = array ( "$k" => "$v");
-				}
-			}
-		}
-		*/
 	}
 	
 	protected function logout() {
@@ -91,7 +75,7 @@ class auth_shows {
 	{
 		if ($auth_object->valid_user == 1)
 		{
-			echo '<form action="'.$this->action.'" method="post">';
+			echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">';
 			echo '<input type="Submit" style="background-color:lightgreen" name="logout" value="logout" />';
 			echo '</form>';
 		}
@@ -101,12 +85,12 @@ class auth_shows {
 	{
 		if ($auth_object->valid_user !== 1)
 		{
-			echo '<form action="?site=profil" method="post">';
+			echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">';
 			echo '<table width="100px"><tr><th>Benutzername</th></tr>';
 			echo '<tr><td><input type="text" name="user" placeholder="Benutzername" required /></td></tr>';
 			echo '<tr><th>Passwort</th></tr>';
 			echo '<tr><td><input type="password" name="pw" placeholder="Passwort" required /></td></tr></table>';
-			echo '<input type="hidden" name="login" value="login"></input><input type="Submit" style="background-color:lightgreen" value="login" />';
+			echo '<input type="hidden" name="login" value="login"><input type="Submit" style="background-color:lightgreen" value="login" />';
 			echo '</form>'; // ah verstehe aber warum das ? weil sich type submit dabei komisch verhält ... hatte ich auch mal aber kann mich nichmehr genau errinern okprobiers
 		}
 	}
@@ -115,7 +99,7 @@ class auth_shows {
 	{
 		if ($auth_object->valid_user == 1)
 		{
-			echo 'Hallo '.$user;
+			echo 'Hallo '.$_SESSION['login'];
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-ini_set('session.gc_maxlifetime', 3600);
+ini_set('session.gc_maxlifetime', 1800);
 ini_set('session.gc_divisor', 1);
 session_start();
 
