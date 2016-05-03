@@ -1,9 +1,8 @@
 <div>
 <?php
-$navigation = new navigation();
-$show_navi = new nav_show();
 
-$show_navi->show_main($navigation);
+
+$show_navi->show_main();
 ?>
 </div>
 <div class="black_deko">
@@ -16,7 +15,7 @@ $auth_show->show_login($auth);
 $show_navi->show_mem($navigation, $role);
 br();
 
-$auth_show->show_logout();
+$auth_show->show_logout($auth);
 print_r ($user);
 ?>
 </div>

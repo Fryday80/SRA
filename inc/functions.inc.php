@@ -1,8 +1,10 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'functions.inc.php'){exit('This page may not be called directly !'); }
 
-function bugfix (){
-	echo 'bugfix';
+function bugfix ($comment = 'here'){
+	if ($GLOBALS['bugfix'] == 'on'){
+	echo 'bugfix '.$comment;
+	br();}
 }
 function jetzt () {
 

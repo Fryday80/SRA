@@ -1,7 +1,10 @@
 <?php
+
 ini_set('session.gc_maxlifetime', 1800);
 ini_set('session.gc_divisor', 1);
 session_start();
+$bugfix = 'on';
+
 
 //ich hab den db.connect in,clude auskomentiert zum testen
 include_once 'all.inc.php';
@@ -15,13 +18,16 @@ if ($_GET['site'] !== 'admin')
 jetzt ();
 $auth = new authentication();
 $nav= new NavigationDAO();
+$nav = $nav->getNavigation();
+$memnav = new MembersNavigationDAO();
+$memnav = $memnav->getNavigation();
+$show_navi = new nav_show($nav, $memnav);
+bugfix(1);
 print_r ($nav);
-br();
-bugfix();
-foreach($nav as $key => $v){
-	echo $key.' = '.$v;
-	br();
-}
+//foreach($nav as $key => $v){
+//	echo $key.' = '.$v;0
+//	br();
+//}
 
 ?>
 
