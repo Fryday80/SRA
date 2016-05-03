@@ -31,8 +31,8 @@ class DataAccessObject
 	protected function updateWhere($column, $columnValue) {
 		$setList = "";
 		//@todo genderate set list in form "lastname='Doe',pw='pass'"
-		if (!mysqli_query($this::$dbLink, "UPDATE MyGuests SET ".$setList." WHERE '" . $column . "'='" . $columnValue . "'")) {
-			echo "Error updating record: " . mysqli_error($this::$dbLink);
+		if (!mysqli_query(self::$dbLink, "UPDATE MyGuests SET ".$setList." WHERE '" . $column . "'='" . $columnValue . "'")) {
+			echo "Error updating record: " . mysqli_error(self::$dbLink);
 		}
 	}
 	function join ($onTable, $srcColumnName, $targetColumnName, $compareValue) {
@@ -41,26 +41,33 @@ class DataAccessObject
 		"INNER JOIN $onTable".
 		"ON $this->tableName.$srcColumnName=$onTable.$targetColumnName".
 		"WHERE $this->tableName.$srcColumnName = $onTable.$compareValue";
-		$db_erg = mysqli_query($this::dbLink, $sql);
+		$db_erg = mysqli_query(self::$dbLink, $sql);
 		if (! $db_erg) {
-			echo "Error read record: " . mysqli_error($this::$dbLink);
+			echo "Error read record: " . mysqli_error(self::$dbLink);
 			return false;
 		}
 		return $db_erg;
 	}
-		function save($data) {
-			if (is_array($data)) {
-				//
-			} else if (get_class($data) == $this->dataType) {
-				//@todo push to db
-				foreach ($data as $key => $value) {
-					//build SQL query
-					//SET
-				}
+	function save($data) {
+		if (is_array($data)) {
+
+		} else if (get_class($data) == $this->dataType) {
+			//@todo push to db
+			$sql = "";
+			foreach ($data as $key => $value) {
+				$sql = $sql." ".$key." = '".$value."',";
 			}
+			print($sql);
+			$sql = substr($sql, 0, strlen($sql) - 1);
+			//remove last ","
+			print($sql);
+			$sql = "UPDATE $this->tableName SET ".$sql." WHERE id = '".$data->getID()."'";
+			print($sql);
+			$db_erg = mysqli_query(self::$dbLink, $sql);
 		}
-		private function getBySqlQuery($mysqlQuery) {
-			$db_erg = mysqli_query($this::dbLink, $mysqlQuery);
+	}
+	private function getBySqlQuery($mysqlQuery) {
+		$db_erg = mysqli_query(self::$dbLink, $mysqlQuery);
 		$i = 0;
 		$result = array();
 		while ($data = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
@@ -68,9 +75,9 @@ class DataAccessObject
 			$result[$i] = $dataClass;
 			foreach ($data as $key => $v) {
 				if ($key === "id") continue; ///was tut das hier?
-				$dataClass[$key] = $v;
+				$dataClass->$key = $v;
 			}
-			$i++; 
+			$i++;
 		}
 		return $result;
 	}
@@ -93,6 +100,7 @@ class ValueObject {
 		$this->id = $id;
 	}
 	function save() {
+		print_r(($this->signed)?"true": "false" );
 		if ($this->signed || isset($dao)) {
 			$this->dao->save($this);
 		}

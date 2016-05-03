@@ -6,8 +6,8 @@ class UserDAO extends DataAccessObject {
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(1, 1, "peter", 4, "202cb962ac59075b964b07152d234b70"),
-							 new UserVO(2, 2, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
+		$this->dummy = array(new UserVO(0, "peter", 4, "202cb962ac59075b964b07152d234b70"),
+							 new UserVO(1, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
 	}
 	/*
 	 * return UserVO
@@ -37,7 +37,6 @@ class UserDAO extends DataAccessObject {
 			}
 			return $data[0];
 		}
-		
 	}
 }
 
@@ -46,8 +45,8 @@ class UserVO extends ValueObject {
 	public $role;
 	public $pw;
 
-	function __construct($id, $name, $role, $pw) {
-		parent::setID($id);
+	function __construct($dao, $id = null, $name = null, $role = null, $pw = null) {
+		parent::__construct($dao, $id);
 		$this->name = $name;
 		$this->role = $role;
 		$this->pw = $pw;
