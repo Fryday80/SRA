@@ -14,7 +14,10 @@ if ($_GET['site'] !== 'admin')
 <?php 
 jetzt ();
 $auth = new authentication();
-
+$nav= new NavigationDAO();
+print_r ($nav);
+br();
+bugfix();
 print_r ($_POST);
 br ();
 print_r ($_SESSION);

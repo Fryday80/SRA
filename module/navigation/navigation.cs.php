@@ -1,57 +1,76 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'navigation.cs.php'){exit('This page may not be called directly !'); }
 
-// ja ohne debug ausgaben seh ich nix
-// dann füg ein... ich hab auch schon geschaut, das globale schreiben funzt au ned...
-class navigation {
-	protected $name, $link, $position, $perm;
-	public $view = array();
-	public $view_m = array();
-	
-	public function __construct()
-	{
-		$this->view 	= array();
-		$this->view_m   = array();
-		$this->build_main();
-		$this->build_mem();
+
+class NavigationDAO extends DataAccessObject{
+	protected $dataType = "NavVO";
+	protected $tableName = "navigation";
+	private $dummy;
+
+	function __construct() {
+		//create dummy data
+		$this->dummy = array(new UserVO(1, 1, "Profil", "?site=profil"),
+			new UserVO(2, 2, "dummy","?site=FuehrtZuNix"));
 	}
-	
-	private function build_main () {
-		$sql = 'SELECT * FROM `navigation` ORDER BY "position"';
-		$db_erg = mysqli_query( $db_link, $sql );
-//		if ( ! $db_erg ) {die('Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link));}
-		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
-		{
-			$name = $daten['name'];
-			$link = $daten['link'];
-			$pos = $daten['position'];
-			
-			$this->view[$pos] = array( "name" => $name, "link" => $link);
-		}
-		mysqli_free_result( $db_erg );
-		
-	}
-	
-	private function build_mem (){
-		$sql = "SELECT * FROM `membernav` ORDER BY 'position'";
-		$db_erg = mysqli_query( $db_link, $sql );
-	//	if ( ! $db_erg ) {echo 'Ung&uuml;ltige Abfrage: ' .mysqli_errno($db_link);}
-		while ($daten = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
-		{
-			$name = $daten['name'];
-			$link = $daten['link'];
-			$pos = $daten['position'];
-			$perm = $daten['role'];
-			$this->view_m[$perm][$pos] = array( "name" => $name, "link" => $link);
+
+	public function getNavigation(){
+		if (DATA_MOCKING) {
+			return $this->dummy[0];}
+		else {
+			$data = $this->wholeTable();
+			if (count($data) < 1) {
+				return false;
+			}
+			return $data;
 		}
 	}
-	
-	
 }
+
+class MembersNavigationDAO extends DataAccessObject{
+	protected $dataType = "MemNavVO";
+	protected $tableName = "membernav";
+	private $dummy;
+
+	function __construct() {
+		//create dummy data
+		$this->dummy = array(new UserVO(1, 1, "Profil", "?site=profil", 1),
+			new UserVO(2, 2, "dummy","?site=FuehrtZuNix", 2));
+	}
+
+	public function getNavigation(){
+		if (DATA_MOCKING) {
+			return $this->dummy[0];}
+		else {
+			$data = $this->wholeTable();
+			if (count($data) < 1) {
+				return false;
+			}
+
+			return $data;
+		}
+	}
+}
+class NavVO extends ValueObject {
+	public $name;
+	public $role;
+	public $pw;
+
+	function __construct($id, $name, $role, $pw) {
+		parent::setID($id);
+		$this->name = $name;
+		$this->role = $role;
+		$this->pw = $pw;
+	}
+}
+
+
+
+
+
 
 class nav_show {
 
-	function show_main ($nav_object) {
+	function show_main () {
 		ksort($nav_object->view);
 		foreach ($nav_object->view as $k => $v){
 			ksort($nav_object->view["$k"]);
