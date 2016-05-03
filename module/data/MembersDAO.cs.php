@@ -1,13 +1,13 @@
 <?php
 class UserDAO extends DataAccessObject {
 	protected $dataType = "UserVO";
-	protected $tableName = "login";
+	protected $tableName = "memberdata";
 	private $dummy;
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(1, "peter", 4, "202cb962ac59075b964b07152d234b70"),
-							 new UserVO(2, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
+		$this->dummy = array(new UserVO(1, "Mark", "One", "Tony Stark Blv.", "1a", 0, 0, 0),
+							 new UserVO(2, "Marc", "Two", "Drurchfallweg", 5, 0, 0, 0));
 	}
 	/*
 	 * return UserVO
@@ -16,7 +16,7 @@ class UserDAO extends DataAccessObject {
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			$data = $this->where("id", $id);
+			$data = $this->where("usr_id", $id);
 			if (count($data) < 1) {
 				return false;
 			}
@@ -27,6 +27,7 @@ class UserDAO extends DataAccessObject {
 	/*
 	 * return UserVO
 	 */
+	/*
 	function getByName($name) {
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
@@ -38,10 +39,10 @@ class UserDAO extends DataAccessObject {
 			return $data[0];
 		}
 		
-	}
+	}  */
 }
 
-class UserVO extends ValueObject {
+class MemberDataVO extends ValueObject {
 	public $name;
 	public $role;
 	public $pw;

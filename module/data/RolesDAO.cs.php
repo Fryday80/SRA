@@ -8,15 +8,16 @@ class RolesDAO extends DataAccessObject {
 		//create dummy data
 		$this->dummy = array(new UserVO(1, 1, "Member", "Hans", "Peter"),
 							 new UserVO(2, 2, "Superuser", "Ludwig", NULL));
+		if (!DATA_MOCKING) {$this->getRoles();}
 	}
 	/*
 	 * return UserVO
 	 */
-	function getByRoleNr($number){
+	private function getRoles(){
 		if (DATA_MOCKING) {
-			return $this->dummy[0];
+			return $this->dummy;
 		} else {
-			$data = $this->where("role_nr", $number);
+			$data = $this->wholeTable();
 			if (count($data) < 1) {
 				return false;
 			}
@@ -24,30 +25,13 @@ class RolesDAO extends DataAccessObject {
 		}
 
 	}
-	/*
-	 * return UserVO
-	 */
-	function getByRoleName($name) {
-		if (DATA_MOCKING) {
-			return $this->dummy[0];
-		} else {
-			$data = $this->where("role_desc", $name);
-			if (count($data) < 1) {
-				return false;
-			}
-			return $data[0];
-		}
-		
-	}
+	
 }
 
 class RolesVO extends ValueObject {
-	public $role_name;
 	public $role_number;
-	public $leader_1;
-	public $leader_2;
 
-	function __construct($id, $role_name, $role_number, $leader_1, $leader_2) {
+	function __construct($role_number) {  //braucht es das? beim init. ist das doch alles noch nicht gesetzt
 		parent::setID($id);
 		$this->name = $name;
 		$this->role = $role;

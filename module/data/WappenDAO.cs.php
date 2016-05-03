@@ -1,13 +1,13 @@
 <?php
 class UserDAO extends DataAccessObject {
 	protected $dataType = "UserVO";
-	protected $tableName = "login";
+	protected $tableName = "wappenrolle";
 	private $dummy;
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(1, "peter", 4, "202cb962ac59075b964b07152d234b70"),
-							 new UserVO(2, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
+		$this->dummy = array(new UserVO(1, 1, "Test1", "Tester", "test", "Hofnarr", "pennery", "test",1,1,0, "test",2,0,0),
+							 new UserVO(1, 1, "Test2", "Tester2", "test2", "Hofnarr2", "pennery2", "tes2t",1,1,0, "test2",2,0,0));
 	}
 	/*
 	 * return UserVO
@@ -16,7 +16,7 @@ class UserDAO extends DataAccessObject {
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			$data = $this->where("id", $id);
+			$data = $this->where("usr_id", $id);
 			if (count($data) < 1) {
 				return false;
 			}
@@ -24,6 +24,16 @@ class UserDAO extends DataAccessObject {
 		}
 
 	}
+
+	public function getRolle(){
+		if (DATA_MOCKING) {
+			return $this->dummy;
+		} else {
+			$data = $this->wholeTable();
+			if (count($data) < 1) {
+				return false;
+			}
+			return $data[0];
 	/*
 	 * return UserVO
 	 */
@@ -41,7 +51,7 @@ class UserDAO extends DataAccessObject {
 	}
 }
 
-class UserVO extends ValueObject {
+class WappenVO extends ValueObject {  ///warum hat der n problem mim namen??
 	public $name;
 	public $role;
 	public $pw;

@@ -24,6 +24,9 @@ class DataAccessObject
 	protected function where($valueName, $value) {
 		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "` WHERE `" . $valueName . "` = '" . $value . "'");
 	}
+	protected function wholeTable (){
+		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "` ");
+	}
 
 	protected function updateWhere($column, $columnValue) {
 		$setList = "";
@@ -64,10 +67,10 @@ class DataAccessObject
 			$dataClass = new $this->dataType($this, $data["id"]);
 			$result[$i] = $dataClass;
 			foreach ($data as $key => $v) {
-				if ($key === "id") continue;
+				if ($key === "id") continue; ///was tut das hier?
 				$dataClass[$key] = $v;
 			}
-			$i++;
+			$i++;  //wofür hast du i eingeführt?
 		}
 		return $result;
 	}
