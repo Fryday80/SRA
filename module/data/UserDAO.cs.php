@@ -6,8 +6,8 @@ class UserDAO extends DataAccessObject {
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(0, "peter", 4, "202cb962ac59075b964b07152d234b70"),
-							 new UserVO(1, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
+		$this->dummy = array(new $this->dataType(0, "peter", 4, "202cb962ac59075b964b07152d234b70"),
+							 new $this->dataType(1, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
 	}
 	/*
 	 * return UserVO

@@ -8,8 +8,8 @@ class MembersDAO extends DataAccessObject
 	function __construct()
 	{
 		//create dummy data
-		$this->dummy = array(new UserVO(1, "Mark", "One", "Tony Stark Blv.", "1a", 0, 0, 0),
-			new UserVO(2, "Marc", "Two", "Drurchfallweg", 5, 0, 0, 0));
+		$this->dummy = array(	new $this->dataType(1, 1, "Mark", "One", "Tony Stark Blv.", "1a", 0, 0, 0),
+								new $this->dataType(2, 2, "Marc", "Two", "Drurchfallweg", 5, 0, 0, 0));
 	}
 
 	/*
@@ -26,19 +26,21 @@ class MembersDAO extends DataAccessObject
 			}
 			return $data[0];
 		}
-
 	}
 }
 
 class MemberDataVO extends ValueObject {
-	public $name;
-	public $role;
-	public $pw;
+	public $usr_id, $vorname, $name, $strassa, $nr, $plz, $ort, $land;
 
-	function __construct($id, $name, $role, $pw) {
+	function __construct($id, $usr_id=NULL, $vorname=NULL, $name=NULL, $strassa=NULL, $nr=NULL, $plz=NULL, $ort=NULL, $land=NULL) {
 		parent::setID($id);
 		$this->name = $name;
-		$this->role = $role;
-		$this->pw = $pw;
+		$this->usr_id = $usr_id;
+		$this->vorname = $vorname;
+		$this->strassa = $strassa;
+		$this->nr = $nr;
+		$this->plz = $plz;
+		$this->ort = $ort;
+		$this->land = $land;
 	}
 }

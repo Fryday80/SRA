@@ -6,8 +6,8 @@ class RolesDAO extends DataAccessObject {
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new UserVO(1, 1, "Member", "Hans", "Peter"),
-							 new UserVO(2, 2, "Superuser", "Ludwig", NULL));
+		$this->dummy = array(new $this->dataType(1, 1, "Member", "Hans", "Peter"),
+							 new $this->dataType(2, 2, "Superuser", "Ludwig", NULL));
 		if (!DATA_MOCKING) {$this->getRoles();}
 	}
 	/*
@@ -29,12 +29,11 @@ class RolesDAO extends DataAccessObject {
 }
 
 class RolesVO extends ValueObject {
-	public $role_number;
+	public $role_number, $role_description;
 
-	function __construct($role_number) {  //braucht es das? beim init. ist das doch alles noch nicht gesetzt
+	function __construct($id, $role_number = NULL, $role_description = NULL) {
 		parent::setID($id);
-		$this->name = $name;
-		$this->role = $role;
-		$this->pw = $pw;
+		$this->role_number = $role_number;
+		$this->role_description = $role_description;
 	}
 }
