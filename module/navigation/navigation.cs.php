@@ -21,15 +21,17 @@ class NavigationDAO extends DataAccessObject{
 			if (count($data) < 1) {
 				return false;
 			}
+			$data = $this->re_arrange($data);
 			return $data;
 		}
 	}
 	protected function re_arrange($array){
 		$i=0;
+		$result = array();
 		$max = count ($array);
 		for ($i=0; $i < $max; $i++) {
-			$result[$array[$i]['position']] = array( 	"name" => $array[$i]['position']['name'],
-														"link" => $array[$i]['position']['link']);
+			$result = array ($array[$i]['position'] = array( 	"name" => $array[$i]['position']['name'],
+															"link" => $array[$i]['position']['link']));
 		}
 		return $result;
 	}
@@ -54,9 +56,19 @@ class MembersNavigationDAO extends DataAccessObject{
 			if (count($data) < 1) {
 				return false;
 			}
-
+			$data = $this->re_arrange($data);
 			return $data;
 		}
+	}
+	protected function re_arrange($array){
+		$i=0;
+		$result = array();
+		$max = count ($array);
+		for ($i=0; $i < $max; $i++) {
+			$result = array ($array[$i]['position'] = array( 	"name" => $array[$i]['name'],
+				"link" => $array[$i]['link']));
+		}
+		return $result;
 	}
 }
 class NavVO extends ValueObject {

@@ -23,9 +23,13 @@ $memnav = new MembersNavigationDAO();
 $memnav = $memnav->getNavigation();
 $show_navi = new nav_show($nav, $memnav);
 bugfix(1);
-print_r ($_SESSION);
+//print_r ($memnav);
+foreach ($nav as $k => $v){
+	echo $k.' = '. $v;
+}
+
 br();
-print_r ($_POST);
+//print_r ($nav);
 
 //foreach($nav as $key => $v){
 //	echo $key.' = '.$v;0
