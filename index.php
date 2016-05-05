@@ -9,6 +9,7 @@ $bugfix = 'on';
 //ich hab den db.connect in,clude auskomentiert zum testen
 include_once 'all.inc.php';
 include_once 'html/template/header.php';
+DataAccessObject::initDB();// also in der methode direkt definieren?
 if(!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
@@ -23,10 +24,11 @@ $memnav = new MembersNavigationDAO();
 $memnav = $memnav->getNavigation();
 $show_navi = new nav_show($nav, $memnav);
 bugfix(1);
-//print_r ($memnav);
-foreach ($nav as $k => $v){
-	echo $k.' = '. $v;
-}
+print_r ($_SESSION);
+//foreach ($nav as $k => $v){
+//	echo $k.' = '. $v;
+//}  // das ging ja schon mal, das dann [position] => 1 etc raus kam
+
 
 br();
 //print_r ($nav);

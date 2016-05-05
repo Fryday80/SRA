@@ -2,7 +2,7 @@
 <?php
 
 
-//$show_navi->show_main();
+$show_navi->show_main();
 ?>
 </div>
 <div class="black_deko">
@@ -12,7 +12,7 @@
 $auth_show = new auth_shows($auth);
 $auth_show->show_greetings($auth);
 $auth_show->show_login($auth);
-//$show_navi->show_mem($navigation, $role);
+$show_navi->show_mem($_SESSION['role']);
 br();
 
 $auth_show->show_logout($auth);

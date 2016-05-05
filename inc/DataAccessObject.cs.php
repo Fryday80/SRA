@@ -6,8 +6,9 @@ class DataAccessObject
 	protected $tableName;
 	protected static $dbLink;
 
-	static function init() {
+	static function initDB() {
 		if (DATA_MOCKING) return;
+		print(MYSQL_HOST);
 		self::$dbLink = mysqli_connect(
 			MYSQL_HOST,
 			MYSQL_BENUTZER,

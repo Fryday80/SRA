@@ -21,7 +21,9 @@ class NavigationDAO extends DataAccessObject{
 			if (count($data) < 1) {
 				return false;
 			}
-			$data = $this->re_arrange($data);
+			print_r($data);
+			bugfix (88);
+			//$data2 = $this->re_arrange($data);
 			return $data;
 		}
 	}
@@ -30,9 +32,14 @@ class NavigationDAO extends DataAccessObject{
 		$result = array();
 		$max = count ($array);
 		for ($i=0; $i < $max; $i++) {
-			$result = array ($array[$i]['position'] = array( 	"name" => $array[$i]['position']['name'],
-															"link" => $array[$i]['position']['link']));
-		}
+			$result[$array[$i]['position']]['name'] = $array[$i]['name'];
+			$result[$array[$i]['position']]['link'] = $array[$i]['link'];
+		}//des macht mich voll kaput .... was soll den hier für ne form rauskommen?
+		//also des is end schlecht hier auch die zuweisung in dem array index
+//ok anders ich weiß ja nich wie du des gebaut hast des die navigation schreibt ... zeigs mir jetzt lieber nich ;)
+		//naja das war ursprünglich einfach... position war der erste key und dann einfach mit ner schleife 7
+		// wenn das alles parallel im array steht muss ich halt die nav relativ umständlich bauen lassen... finde ich zumindest
+		//ja dachte ich mir obwohl man sichs wahrscheinlich end einfach machen kann  .)
 		return $result;
 	}
 }
@@ -56,7 +63,7 @@ class MembersNavigationDAO extends DataAccessObject{
 			if (count($data) < 1) {
 				return false;
 			}
-			$data = $this->re_arrange($data);
+			//$data = $this->re_arrange($data);
 			return $data;
 		}
 	}
@@ -65,8 +72,8 @@ class MembersNavigationDAO extends DataAccessObject{
 		$result = array();
 		$max = count ($array);
 		for ($i=0; $i < $max; $i++) {
-			$result = array ($array[$i]['position'] = array( 	"name" => $array[$i]['name'],
-				"link" => $array[$i]['link']));
+			$result[$array[$i]['role']][$array[$i]['position']]["name"] = $array[$i]['position']['name'];
+			$result[$array[$i]['role']][$array[$i]['position']]["link"] = $array[$i]['position']['link'];
 		}
 		return $result;
 	}
@@ -116,31 +123,51 @@ class nav_show {
 	}
 
 	function show_main () {
-		//ksort($mainNavObject);
-		foreach ($this->navDAO_Main as $k => $v){
-		//	ksort($this->navDAO_Main["$k"]);
-			$lin = $this->navDAO_Mai["$k"]["link"];
-			$nam = $this->navDAO_Mai["$k"]["name"];
-			echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
+
+		foreach ($this->navDAO_Main as $k => $value) {
+			foreach ($value as $key => $value2){
+				//print_r($key);
+				if ($key == 'position') { $position = $value2;}
+				if ($key == 'name') { $name = $value2;}
+				if ($key == 'link') { $link = $value2;}
+			}
+			$array[$position]['name'] = $name;
+			$array[$position]['link'] = $link;
+		}
+		ksort($array);
+		//print_r ($array);
+		foreach ($array as $key => $value){
+			//echo $key.'<br>';
+			$link = $array[$key]['link'];
+			$name = $array[$key]['name'];
+			echo '<div class="link"><a href="' . $link . '">' . $name . '</a></div>';
 		}
 	}
 		
 	public function show_mem ($permission_power)
 	{
-		$i=0;
-		//@ hier wäre der Aufbau $role =>$position => 	$link = xx
-		//												$name = yy       // nötig
-	
-		//ksort($this->navDAO_Mem); //@nach role sortieren 0->6
-		for ($i=0; $i <= $permission_power; $i++){
-			//ksort($this->navDAO_Mem["$i"]);
-			foreach ($this->navDAO_Mem[$i] as $k => $v)
-			{
-				$lin = $this->navDAO_Mem["$i"]["$k"]["link"];
-				$nam = $this->navDAO_Mem["$i"]["$k"]["name"];
-				echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
+		foreach ($this->navDAO_Mem as $key => $value)	{
+				foreach ($value as $key2 => $value2){
+					//print_r($key);
+					if ($key2 == 'position') { $position = $value2;}
+					if ($key2 == 'name') { $name = $value2;}
+					if ($key2 == 'link') { $link = $value2;}
+					if ($key2 == 'role') { $role = $value2;}
+				}
+				$array[$role][$position]['name'] = $name;
+				$array[$role][$position]['link'] = $link;
+		}
+		ksort($array);
+		//print_r ($array);
+		foreach ($array as $key){
+			if ($key <= $permission_power) {
+				ksort($key);
+				foreach ($key as $key2 => $value3) {
+					$link = $key[$key2]['link'];
+					$name = $array[$key2]['name'];
+					echo '<div class="link"><a href="' . $link . '">' . $name . '</a></div>';
+				}
 			}
 		}
 	}
-
 }
