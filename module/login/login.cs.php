@@ -18,6 +18,7 @@ class authentication{
 				$this->input_pw = $_POST['pw'];
 				$this->trans_in = $_POST['login'];
 				$this->auth();
+				print_r('hallllllooo');
 			}
 			if (isset($_POST['logout'])) {
 				$this->trans_out = $_POST['logout'];

@@ -21,7 +21,7 @@ class NavigationDAO extends DataAccessObject{
 			if (count($data) < 1) {
 				return false;
 			}
-			print_r($data);
+			//print_r($data);
 			bugfix (88);
 			//$data2 = $this->re_arrange($data);
 			return $data;
@@ -34,12 +34,7 @@ class NavigationDAO extends DataAccessObject{
 		for ($i=0; $i < $max; $i++) {
 			$result[$array[$i]['position']]['name'] = $array[$i]['name'];
 			$result[$array[$i]['position']]['link'] = $array[$i]['link'];
-		}//des macht mich voll kaput .... was soll den hier für ne form rauskommen?
-		//also des is end schlecht hier auch die zuweisung in dem array index
-//ok anders ich weiß ja nich wie du des gebaut hast des die navigation schreibt ... zeigs mir jetzt lieber nich ;)
-		//naja das war ursprünglich einfach... position war der erste key und dann einfach mit ner schleife 7
-		// wenn das alles parallel im array steht muss ich halt die nav relativ umständlich bauen lassen... finde ich zumindest
-		//ja dachte ich mir obwohl man sichs wahrscheinlich end einfach machen kann  .)
+		}
 		return $result;
 	}
 }

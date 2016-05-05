@@ -1,45 +1,18 @@
 <?php
-
 ini_set('session.gc_maxlifetime', 1800);
 ini_set('session.gc_divisor', 1);
 session_start();
+
 $bugfix = 'on';
+include_once 'common.php';
 
-
-//ich hab den db.connect in,clude auskomentiert zum testen
-include_once 'all.inc.php';
 include_once 'html/template/header.php';
-DataAccessObject::initDB();// also in der methode direkt definieren?
+
 if(!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
 ?>
 <body>
-<?php 
-jetzt ();
-$auth = new authentication();
-$nav= new NavigationDAO();
-$nav = $nav->getNavigation();
-$memnav = new MembersNavigationDAO();
-$memnav = $memnav->getNavigation();
-$show_navi = new nav_show($nav, $memnav);
-bugfix(1);
-print_r ($_SESSION);
-//foreach ($nav as $k => $v){
-//	echo $k.' = '. $v;
-//}  // das ging ja schon mal, das dann [position] => 1 etc raus kam
-
-
-br();
-//print_r ($nav);
-
-//foreach($nav as $key => $v){
-//	echo $key.' = '.$v;0
-//	br();
-//}
-
-?>
-
 <div id="site">
 	<div id="head">
 		<?php include ('html/template/head.php');?>

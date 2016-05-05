@@ -14,12 +14,15 @@ class UserDAO extends DataAccessObject {
 	 */
 	function getById($id){
 		if (DATA_MOCKING) {
+			bugfix('was tu ich hier');
 			return $this->dummy[0];
 		} else {
+			bugfix('hier bin ich richtig');
 			$data = $this->where("id", $id);
 			if (count($data) < 1) {
 				return false;
 			}
+			print_r($data);
 			return $data[0];
 		}
 
