@@ -29,11 +29,13 @@ class authentication{
 		$this->findUser($this->input_user);
 		$this->comparePass($_POST['pw'], $this->pw);
 		$this->set_vars();
+
 	}
 
 	protected function findUser ($name){
 		$userDAO = new UserDAO();
 		$userVO = $userDAO->getByName($name);
+		print_r ($userVO);
 		if ($userVO) {
 			$this->pw = $userVO->pw;
 			$this->usr = $userVO;
@@ -72,7 +74,7 @@ class auth_shows {
 	
 	public function show_logout ($auth_object) 
 	{
-		if ($auth_object->valid_user == 1)
+		if ($_SESSION['valid_login'] == 1)
 		{
 			echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">';
 			echo '<input type="Submit" style="background-color:lightgreen" name="logout" value="logout" />';
@@ -82,7 +84,7 @@ class auth_shows {
 
 	public function show_login ($auth_object) 
 	{
-		if ($auth_object->valid_user !== 1) {
+		if ($_SESSION['valid_login'] !== 1) {
 			echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
 			echo '<table width="100px"><tr><th>Benutzername</th></tr>';
 			echo '<tr><td><input type="text" name="user" placeholder="Benutzername" required /></td></tr>';
@@ -95,7 +97,7 @@ class auth_shows {
 
 	public function show_greetings ($auth_object)
 	{
-		if ($auth_object->valid_user == 1)
+		if ($_SESSION['valid_login'] == 1)
 		{
 			echo 'Hallo '.$_SESSION['login'];
 		}

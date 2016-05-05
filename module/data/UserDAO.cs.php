@@ -6,8 +6,8 @@ class UserDAO extends DataAccessObject {
 	
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new $this->dataType(0, "peter", 4, "202cb962ac59075b964b07152d234b70"),
-							 new $this->dataType(1, "sepp", 2, "202cb962ac59075b964b07152d234b70"));
+		$this->dummy = array(new $this->dataType(1, 1, 1, "peter", "202cb962ac59075b964b07152d234b70", 3, NULL, NULL, NULL),
+							 new $this->dataType(2, 2,2,  "sepp", "202cb962ac59075b964b07152d234b70", 1, NULL, NULL, NULL));
 	}
 	/*
 	 * return UserVO
@@ -35,20 +35,23 @@ class UserDAO extends DataAccessObject {
 			if (count($data) < 1) {
 				return false;
 			}
-			return $data[0];
+			return $data;
 		}
 	}
 }
 
 class UserVO extends ValueObject {
-	public $name;
-	public $role;
-	public $pw;
+	public $usr_id, $login, $pw, $role, $last_change, $since, $last_login;
 
-	function __construct($dao, $id = null, $name = null, $role = null, $pw = null) {
+	function __construct($dao,  $id, $usr_id=NULL, $login=NULL, $pw=NULL, $role=NULL, $last_change=NULL,
+						 $since=NULL, $last_login=NULL ) {
 		parent::__construct($dao, $id);
-		$this->name = $name;
-		$this->role = $role;
+		$this->usr_id = $usr_id;
+		$this->login = $login;
 		$this->pw = $pw;
+		$this->role = $role;
+		$this->last_change = $last_change;
+		$this->since = $since;
+		$this->last_login = $last_login;
 	}
 }

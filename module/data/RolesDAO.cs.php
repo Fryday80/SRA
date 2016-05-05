@@ -31,7 +31,7 @@ class RolesDAO extends DataAccessObject {
 class RolesVO extends ValueObject {
 	public $role_number, $role_description;
 
-	function __construct($id, $role_number = NULL, $role_description = NULL) {
+	function __construct($dao, $id, $role_number = NULL, $role_description = NULL) {
 		parent::setID($id);
 		$this->role_number = $role_number;
 		$this->role_description = $role_description;

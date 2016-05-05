@@ -58,7 +58,7 @@ class WappenVO extends ValueObject {
 	public $usr_id, $vorname, $name, $familienname, $titel, $titel2, $piccode;
 public $beziehung, $kinder, $hirachie, $trossfamilie, $soldat;
 
-	function __construct($id, $usr_id = NULL, $vorname = NULL, $name=NULL, $familienname = NULL,
+	function __construct($dao, $id, $usr_id = NULL, $vorname = NULL, $name=NULL, $familienname = NULL,
 						 $titel = NULL, $titel2 = NULL, $piccode = NULL, $beziehung = NULL,
 						 $kinder = NULL, $hirachie = NULL, $trossfamilie = NULL, $soldat = NULL) {
 		parent::setID($id);

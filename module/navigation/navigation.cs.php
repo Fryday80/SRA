@@ -9,8 +9,8 @@ class NavigationDAO extends DataAccessObject{
 
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new NavVO($this, 1, 1, "Profil", "?site=profil"),
-							 new NavVO($this, 2, 2, "dummy","?site=FuehrtZuNix"));
+		$this->dummy = array(new $this->dataType($this, 1, 1, "Profil", "?site=profil"),
+							 new $this->dataType($this, 2, 2, "dummy","?site=FuehrtZuNix"));
 	}
 
 	function getNavigation(){
@@ -42,8 +42,8 @@ class MembersNavigationDAO extends DataAccessObject{
 
 	function __construct() {
 		//create dummy data
-		$this->dummy = array(new MemNavVO($this, 1, 1, "Profil", "?site=profil", 1),
-			new MemNavVO($this, 2, 2, "dummy","?site=FuehrtZuNix", 2));
+		$this->dummy = array(	new $this->dataType($this, 1, 1, "Profil", "?site=profil", 1),
+								new $this->dataType($this, 2, 2, "dummy","?site=FuehrtZuNix", 2));
 	}
 
 	public function getNavigation(){
@@ -95,20 +95,20 @@ class MemNavVO extends ValueObject {
 
 
 class nav_show {
-	public $NavDA_Main, $navDAO_Mem;
+	public $navDAO_Main, $navDAO_Mem;
 
 	function __construct($mainNavObject, $memberNavObject)
 	{
-		$this->NavDAO_Main = $mainNavObject;
+		$this->navDAO_Main = $mainNavObject;
 		$this->navDAO_Mem = $memberNavObject;
 	}
 
 	function show_main () {
-		ksort($mainNavObject);
-		foreach ($mainNavObject as $k => $v){
-			ksort($mainNavObject["$k"]);
-			$lin = $mainNavObject["$k"]["link"];
-			$nam = $mainNavObject["$k"]["name"];
+		//ksort($mainNavObject);
+		foreach ($this->navDAO_Main as $k => $v){
+		//	ksort($this->navDAO_Main["$k"]);
+			$lin = $this->navDAO_Mai["$k"]["link"];
+			$nam = $this->navDAO_Mai["$k"]["name"];
 			echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
 		}
 	}
@@ -119,13 +119,13 @@ class nav_show {
 		//@ hier wäre der Aufbau $role =>$position => 	$link = xx
 		//												$name = yy       // nötig
 	
-		ksort($memberNavObject); //@nach role sortieren 0->6
+		//ksort($this->navDAO_Mem); //@nach role sortieren 0->6
 		for ($i=0; $i <= $permission_power; $i++){
-			ksort($memberNavObject["$i"]);
-			foreach ($memberNavObject[$i] as $k => $v)
+			//ksort($this->navDAO_Mem["$i"]);
+			foreach ($this->navDAO_Mem[$i] as $k => $v)
 			{
-				$lin = $memberNavObject["$i"]["$k"]["link"];
-				$nam = $memberNavObject["$i"]["$k"]["name"];
+				$lin = $this->navDAO_Mem["$i"]["$k"]["link"];
+				$nam = $this->navDAO_Mem["$i"]["$k"]["name"];
 				echo '<div class="link"><a href="'.$lin.'">'.$nam.'</a></div>';
 			}
 		}

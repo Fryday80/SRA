@@ -32,7 +32,7 @@ class MembersDAO extends DataAccessObject
 class MemberDataVO extends ValueObject {
 	public $usr_id, $vorname, $name, $strassa, $nr, $plz, $ort, $land;
 
-	function __construct($id, $usr_id=NULL, $vorname=NULL, $name=NULL, $strassa=NULL, $nr=NULL, $plz=NULL, $ort=NULL, $land=NULL) {
+	function __construct($dao, $id, $usr_id=NULL, $vorname=NULL, $name=NULL, $strassa=NULL, $nr=NULL, $plz=NULL, $ort=NULL, $land=NULL) {
 		parent::setID($id);
 		$this->name = $name;
 		$this->usr_id = $usr_id;

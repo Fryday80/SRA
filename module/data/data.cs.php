@@ -1,5 +1,6 @@
 <?php
 define("DATA_MOCKING", true);
+define("LOGIN_MOCKING", true);
 $path = 'module/data/';
 $classExtention = '.cs.php';
 $classArray = array ("UserDAO", "RolesDAO", "MembersDAO", "MembersDAO");
