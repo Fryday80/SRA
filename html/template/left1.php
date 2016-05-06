@@ -9,13 +9,13 @@ $show_navi->show_main();
 </div>
 <div>
 <?php 
-$auth_show = new auth_shows($auth);
-$auth_show->show_greetings($auth);
-$auth_show->show_login($auth);
-$show_navi->show_mem($_SESSION['role']);
+
+$auth_show->show_greetings();
+$auth_show->show_login();
+if (isset ($_SESSION['user_role'])){ $show_navi->show_mem($_SESSION['user_role']);}
 br();
 
-$auth_show->show_logout($auth);
+$auth_show->show_logout();
 
 ?>
 </div>

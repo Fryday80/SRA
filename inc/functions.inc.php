@@ -6,6 +6,13 @@ function bugfix ($comment = 'here'){
 	echo 'bugfix '.$comment;
 	br();}
 }
+
+function bugfix_expression ($expression = 'br(2);'){
+	if ($GLOBALS['bugfix'] == 'on'){
+		$expression;
+		br();}
+}
+
 function jetzt () {
 
 	global $date, $dateTimestamp, $day, $month, $year;

@@ -15,3 +15,4 @@ $memnav = new MembersNavigationDAO();
 $memnav = $memnav->getNavigation();
 
 $show_navi = new nav_show($nav, $memnav);
+$auth_show = new auth_shows($auth);

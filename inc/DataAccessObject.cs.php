@@ -8,7 +8,7 @@ class DataAccessObject
 
 	static function initDB() {
 		if (DATA_MOCKING) return;
-		print(MYSQL_HOST);
+		bugfix (MYSQL_HOST.'<br>');
 		self::$dbLink = mysqli_connect(
 			MYSQL_HOST,
 			MYSQL_BENUTZER,
@@ -61,7 +61,6 @@ class DataAccessObject
 			print($sql);
 			$sql = substr($sql, 0, strlen($sql) - 1);
 			//remove last ","
-			print($sql);
 			$sql = "UPDATE $this->tableName SET ".$sql." WHERE id = '".$data->getID()."'";
 			print($sql);
 			$db_erg = mysqli_query(self::$dbLink, $sql);

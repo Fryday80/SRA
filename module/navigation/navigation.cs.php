@@ -139,11 +139,12 @@ class nav_show {
 		}
 	}
 		
-	public function show_mem ($permission_power)
+	public function show_mem ($permission_power = 0)
 	{
+		$i=0;
 		foreach ($this->navDAO_Mem as $key => $value)	{
 				foreach ($value as $key2 => $value2){
-					//print_r($key);
+				//	print_r($key2);
 					if ($key2 == 'position') { $position = $value2;}
 					if ($key2 == 'name') { $name = $value2;}
 					if ($key2 == 'link') { $link = $value2;}
@@ -154,15 +155,17 @@ class nav_show {
 		}
 		ksort($array);
 		//print_r ($array);
-		foreach ($array as $key){
-			if ($key <= $permission_power) {
-				ksort($key);
-				foreach ($key as $key2 => $value3) {
-					$link = $key[$key2]['link'];
-					$name = $array[$key2]['name'];
+		while ($i <= $permission_power) {
+			if (isset($array[$i])) {
+			//	print_r($array[$i]);
+				foreach ($array[$i] as $key => $val) {
+
+					$link = $array[$i][$key]['link'];
+					$name = $array[$i][$key]['name'];
 					echo '<div class="link"><a href="' . $link . '">' . $name . '</a></div>';
 				}
 			}
+			$i++;
 		}
 	}
 }

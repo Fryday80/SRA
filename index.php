@@ -7,7 +7,6 @@ $bugfix = 'on';
 include_once 'common.php';
 
 include_once 'html/template/header.php';
-
 if(!isset ($_GET['site'])){$_GET['site']='profil';}
 if ($_GET['site'] !== 'admin')
 {
