@@ -73,6 +73,7 @@ class MembersNavigationDAO extends DataAccessObject{
 		return $result;
 	}
 }
+
 class NavVO extends ValueObject {
 	public $position;
 	public $name;
@@ -85,8 +86,7 @@ class NavVO extends ValueObject {
 		$this->position = $position;
 	}
 }
-//@ hier wäre der Aufbau   		$position => 	$link = xx
-//												$name = yy       // nötig
+
 class MemNavVO extends ValueObject {
 	public $role;
 	public $position;
@@ -101,12 +101,6 @@ class MemNavVO extends ValueObject {
 		$this->link = $link;
 	}
 }
-//@ hier wäre der Aufbau $role =>$position => 	$link = xx
-//												$name = yy       // nötig
-
-
-
-
 
 class nav_show {
 	public $navDAO_Main, $navDAO_Mem;

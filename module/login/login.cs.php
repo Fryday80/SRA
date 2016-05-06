@@ -72,6 +72,7 @@ class authentication{
 	protected function logout() {
 		if ($_POST['logout'] == 'logout'){
 			$_SESSION['valid_login']=false;
+			session_unset();
 			session_destroy();
 			unset ($valid_login, $user, $role, $user_id);
 		}
