@@ -1,12 +1,13 @@
-<?php $text ='<titel>Schwarze Rittern zu Augsburg </titel><br><br>
+															<?php $text ='<titel>Schwarze Rittern zu Augsburg </titel><br><br>
+
 Unsere Seite befindet sich gerade im Aufbau<br>
 Schauen Sie sich gerne um<br><br>
 Wir stellen ein Raubritterlager dar. Die Gruppe besteht aktuell aus 11 Mitgliedern + Kindern.<br>
-Wir versuchen ein schönes belebtes Lager auf ca. 3 bis 4 Events im Jahr aufzustellen<br>
-sowie als Gruppe Märkte usw. zu Besuchen, machen jedoch kein Reenacment, der Spaß am Hobby hat Vorrang.<br>
-Wir bieten Workshops, Training für Show und Freikampf und einen lustigen Haufen.<br>
+Wir versuchen ein sch&ouml;nes belebtes Lager auf ca. 3 bis 4 Events im Jahr aufzustellen<br>
+sowie als Gruppe M&auml;rkte usw. zu Besuchen, machen jedoch kein Reenacment, der Spaï¿½ am Hobby hat Vorrang.<br>
+Wir bieten Workshops, Training fï¿½r Show und Freikampf und einen lustigen Haufen.<br>
 Bei Interesse bitte eine Mail an uns.<br>
-Wir freuen uns über Anfragen von Einzelpersonen sowie ganzen Familien, Anfängern und alten Hasen gleichermaßen.<br>
+Wir freuen uns ï¿½ber Anfragen von Einzelpersonen sowie ganzen Familien, Anfï¿½ngern und alten Hasen gleichermaï¿½en.<br>
 Wir sind auch auf <a href="https://www.facebook.com/Schwarze-Ritter-zu-Augsburg-799896913462812/" target=_blank>Facebook</a> zu erreichen ...
 ';
 $text= utf8_encode ($text);

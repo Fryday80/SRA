@@ -41,6 +41,17 @@ class UserDAO extends DataAccessObject {
 			return $data;
 		}
 	}
+	protected function backend_fetch(){
+		if (DATA_MOCKING) {
+			return $this->dummy[0];
+		} else {
+			$data = $this->wholeTable;
+			if (count($data) < 1) {
+				return false;
+			}
+			return $data;
+		}
+	}
 }
 
 class UserVO extends ValueObject {

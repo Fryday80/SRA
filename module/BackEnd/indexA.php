@@ -18,6 +18,10 @@ jetzt ();
 		<div id="up">
 			<div id="left1">
 				<?php
+				$backend = new backend();
+				$backend_show = new backend_show($backend);
+				$backend_show->show_left_menu();
+				/*
 				$sel = $_POST['selector'];
 				$menu = array ("css", "module", "content", "mainnav", "memnav", "Members", "Templates");
 				foreach ($menu as $items)
@@ -75,7 +79,7 @@ jetzt ();
 					break;
 				}
 				br(3);
-				echo '<a href="?site=profil"> zur Homepage</a>';
+				echo '<a href="?site=profil"> zur Homepage</a>'; */
 				?>
 			</div>
 			<div id="second1">
@@ -86,7 +90,7 @@ jetzt ();
 						case 'css':
 						case 'Templates':
 						case 'content':
-					
+
 							echo '<form action="?site=admin" method="POST">';
 							echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
 							echo '<input type="hidden" name="path" value="'.$p.'"/>';
@@ -123,7 +127,8 @@ jetzt ();
 				</div>
 				<div id="middle1" Style="background: none;">
 <?php
-				switch ($_POST['selector'])
+				$backend_files = new backend_filehandler();
+				/*switch ($_POST['selector'])
 				{
 					case 'mainnav':
 					case 'memnav':
@@ -180,7 +185,7 @@ jetzt ();
 						?>
 <?php 
 					fclose($filehandler);
-					}
+					}*/
 ?>
 				</div>
 			</div>
