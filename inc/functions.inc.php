@@ -9,8 +9,8 @@ function bugfix ($comment = 'here'){
 
 function bugfix_expression ($expression = 'br(2);'){
 	if ($GLOBALS['bugfix'] == 'on'){
-		$expression;
-		br();}
+		return $expression;
+	}
 }
 
 function jetzt () {

@@ -41,7 +41,7 @@ class UserDAO extends DataAccessObject {
 			return $data;
 		}
 	}
-	protected function backend_fetch(){
+	public function backend_fetch(){
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
