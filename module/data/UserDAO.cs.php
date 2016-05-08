@@ -41,11 +41,11 @@ class UserDAO extends DataAccessObject {
 			return $data;
 		}
 	}
-	public function backend_fetch(){
+	function get_all_members (){
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			$data = $this->wholeTable;
+			$data = $this->wholeTable();
 			if (count($data) < 1) {
 				return false;
 			}

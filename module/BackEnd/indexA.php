@@ -128,64 +128,7 @@ jetzt ();
 				<div id="middle1" Style="background: none;">
 <?php
 				$backend_files = new backend_filehandler();
-				/*switch ($_POST['selector'])
-				{
-					case 'mainnav':
-					case 'memnav':
-						include "$p";
-						break;
-					default:
-					$datei = $_POST['path'].$_POST['select'];
-					if (isset ($_POST['select']))
-					{
-						$dat = $_POST['select'];
-						if ($_POST['select']== 'Neu')
-						{
-							$datei = $_POST['path'].$_POST['new_name'].'.'.$sel;
-						}
-						
-						if ($_POST['save'] == 'speichern'){
-							$filehandler = fopen("$datei", "w");
-							$update = fwrite($filehandler, $_POST['file']);
-							fclose($filehandler);
-						}
-						$filehandler = fopen("$datei", "r");
-						$text = fread($filehandler, filesize($datei));
-						echo $p.$dat;
-?>
-						<form action="?site=admin" method="POST">
-						<textarea cols="100" rows="24" name="file">
-<?php 					
-						echo $text;
-?>
-						</textarea>
-						<input type="hidden" name="path" value="<?php echo $p; ?>"/>
-						<input type="hidden" name="selector" value="<?php echo $sel; ?>"/>
-						<input type="hidden" name="select" value="<?php echo $dat; ?>"/>
-						<?php 
-						if ($_POST['select']== 'Neu')
-						{
-							echo '<input type="text" name="new_name" placeholder="Neuer Name"/>';
-							switch ($sel)
-							{
-								case 'content':
-									$fileex = '.php';
-									echo $fileex;
-								break;
-								default:
-									echo '.'.$sel;
-							}
-						}
-						?>
-						<input type="submit" name="save" value="speichern" />
-						</form>
-<?php 
-						break;
-						}
-						?>
-<?php 
-					fclose($filehandler);
-					}*/
+
 ?>
 				</div>
 			</div>
@@ -197,6 +140,9 @@ jetzt ();
 			<div id="left2">
 				<?php
 				include ('html/template/left2.php');
+				$memman = new Member_Manager();
+				$member_cloud = $memman->get_All_Data();
+				bugfix('here mem');
 				?>
 			</div>
 			<div id="second2">

@@ -27,17 +27,28 @@ class MembersDAO extends DataAccessObject
 			return $data[0];
 		}
 	}
+	function get_all_members (){
+		if (DATA_MOCKING) {
+			return $this->dummy[0];
+		} else {
+			$data = $this->wholeTable();
+			if (count($data) < 1) {
+				return false;
+			}
+			return $data;
+		}
+	}
 }
 
 class MemberDataVO extends ValueObject {
-	public $usr_id, $vorname, $name, $strassa, $nr, $plz, $ort, $land;
+	public $usr_id, $vorname, $name, $strasse, $nr, $plz, $ort, $land;
 
-	function __construct($dao, $id, $usr_id=NULL, $vorname=NULL, $name=NULL, $strassa=NULL, $nr=NULL, $plz=NULL, $ort=NULL, $land=NULL) {
+	function __construct($dao, $id, $usr_id=NULL, $vorname=NULL, $name=NULL, $strasse=NULL, $nr=NULL, $plz=NULL, $ort=NULL, $land=NULL) {
 		parent::setID($id);
 		$this->name = $name;
 		$this->usr_id = $usr_id;
 		$this->vorname = $vorname;
-		$this->strassa = $strassa;
+		$this->strasse = $strasse;
 		$this->nr = $nr;
 		$this->plz = $plz;
 		$this->ort = $ort;

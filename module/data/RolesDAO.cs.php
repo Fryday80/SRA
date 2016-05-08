@@ -13,7 +13,7 @@ class RolesDAO extends DataAccessObject {
 	/*
 	 * return UserVO
 	 */
-	private function getRoles(){
+	function getRoles(){
 		if (DATA_MOCKING) {
 			return $this->dummy;
 		} else {

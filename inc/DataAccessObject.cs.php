@@ -5,6 +5,7 @@ class DataAccessObject
 	protected $dataType;
 	protected $tableName;
 	protected static $dbLink;
+	protected $all_Member_DB;
 
 	static function initDB() {
 		if (DATA_MOCKING) return;
@@ -49,6 +50,48 @@ class DataAccessObject
 		}
 		return $db_erg;
 	}
+
+	protected function wholeMemberDB ($selectortable, $all_tables, $srcColumnName){
+		$this->all_Member_DB = array ($all_tables );
+		$sql = $this->joined_tables($selectortable, $this->all_Member_DB, $srcColumnName);
+		return $this->getBySqlQuery($sql);
+	}
+
+	//@todo mal schauen^^
+	/*
+	function joined_tables ($selectortable, $all_DB_Tables, $srcColumnName) {
+		$count_tables = count ($all_DB_Tables);
+		$table_string = '';
+		$search_string = '';
+		$i = 2;
+		foreach ($all_DB_Tables as $item) {
+			print_r($item);
+			foreach ($item as $items) {
+			}
+			if ($items !== $selectortable) {
+				if ($i < $count_tables) {
+					$table_string .= "$items .*, ";
+					$search_string .= "$items.$srcColumnName AND";
+					$i++;
+				} elseif ($i = $count_tables) {
+					$table_string .= $items . '.* ';
+					$search_string .= "$items.$srcColumnName";
+				}
+			}
+		}
+
+		$sql = "SELECT * FROM $selectortable ".
+			"INNER JOIN $table_string ".
+			"ON $selectortable.$srcColumnName = $search_string ";
+		$db_erg = mysqli_query(self::$dbLink, $sql);
+		if (! $db_erg) {
+			echo "Error read record: " . mysqli_error(self::$dbLink);
+			return false;
+		}
+		return $db_erg;
+	}
+	*/
+
 	function save($data) {
 		if (is_array($data)) {
 

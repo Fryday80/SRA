@@ -1,5 +1,5 @@
 <?php
-class WapenDAO extends DataAccessObject {
+class WappenDAO extends DataAccessObject {
 	protected $dataType = "WappenVO";
 	protected $tableName = "wappenrolle";
 	private $dummy;
