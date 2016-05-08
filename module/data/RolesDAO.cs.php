@@ -21,7 +21,7 @@ class RolesDAO extends DataAccessObject {
 			if (count($data) < 1) {
 				return false;
 			}
-			return $data[0];
+			return $data;
 		}
 
 	}

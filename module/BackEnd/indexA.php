@@ -21,70 +21,12 @@ jetzt ();
 				$backend = new backend();
 				$backend_show = new backend_show($backend);
 				$backend_show->show_left_menu();
-				/*
-				$sel = $_POST['selector'];
-				$menu = array ("css", "module", "content", "mainnav", "memnav", "Members", "Templates");
-				foreach ($menu as $items)
-				{
-					echo '<form action="?site=admin" method="POST">';
-					echo '<input type="submit" name="selector" value="'.$items.'" />';
-					echo '</form>';
-				}
-				switch ($_POST['selector'])
-				{
-					case 'css':
-						$p = 'html/css/';
-						$sel = $_POST['selector'];
-						break;
-					case 'module':
-						$p = 'module/';
-						$sel = $_POST['selector'];
-						br (2);
-						$dir = scandir($p);
-						foreach ($dir as $files)
-						{
-							if ($files !== "." && $files !== "..")
-							{
-								echo '<form action="?site=admin" method="POST">';
-								echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
-								echo '<input type="hidden" name="path" value="'.$p.'"/>';
-								echo '<input type="submit" name="modul" value="'.$files.'" />';
-								echo '</form>';
-							}
-						}
-						break;
-					case 'content':
-						$p = 'html/content/';
-						$sel = $_POST['selector'];
-						break;
-					case 'mainnav':
-						$p = 'module/navigation/backend.fry.php';
-						$sel = $_POST['selector'];
-						$nav = 'main';
-						break;
-					case 'memnav':
-						$p = 'module/navigation/backend.fry.php';
-						$sel = $_POST['selector'];
-						$nav = 'mem';
-						break;
-					case 'Members':
-						$p = 'html/css/';
-						$sel = $_POST['selector'];
-						break;
-					case 'Templates':
-						$p = 'html/template/';
-						$sel = $_POST['selector'];
-						break;
-					default:
-					break;
-				}
-				br(3);
-				echo '<a href="?site=profil"> zur Homepage</a>'; */
 				?>
 			</div>
 			<div id="second1">
 				<div id="right1">
 					<?php
+					/*
 					switch ($_POST['selector'])
 					{
 						case 'css':
@@ -123,11 +65,22 @@ jetzt ();
 							break;
 												
 					}
-					?>
+					*/?>
 				</div>
 				<div id="middle1" Style="background: none;">
 <?php
 				$backend_files = new backend_filehandler();
+				$alternate_array = array ('mainnav','memnav','Members');
+				if (isset ($_POST['selector']) AND in_array($_POST['selector'], $alternate_array) )
+				{
+					include $p;
+					if ($_POST['selector'] == 'mainnav' OR $_POST['selector'] == 'memnav') {
+						$navigon = new backend_Navigation_Data($_POST['selector']);
+						//print_r ($navigon);
+						$backend_show = new backend_Navigation_View();
+						$backend_show->create_View();
+					}
+				}
 
 ?>
 				</div>
@@ -142,6 +95,7 @@ jetzt ();
 				include ('html/template/left2.php');
 				$memman = new Member_Manager();
 				$member_cloud = $memman->get_All_Data();
+				print_r ($member_cloud);
 				bugfix('here mem');
 				?>
 			</div>

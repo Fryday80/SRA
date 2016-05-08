@@ -34,7 +34,7 @@ class WappenDAO extends DataAccessObject {
 			if (count($data) < 1) {
 				return false;
 			}
-			return $data[0];
+			return $data;
 		}
 	}
 	/*
@@ -44,7 +44,7 @@ class WappenDAO extends DataAccessObject {
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			$data = $this->where("login", $name);
+			$data = $this->where("wappenrolle", $name);
 			if (count($data) < 1) {
 				return false;
 			}

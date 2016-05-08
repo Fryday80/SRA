@@ -13,7 +13,7 @@ class backend{
 	{
 		if (isset ($_POST['selector'])) {$this->sel = $_POST['selector'];}
 		$this->left_menu = array();
-		$this->menu =  array("css", "module", "content", "mainnav", "memnav", "Members", "Templates");
+		$this->menu =  array("css", "Templates", "content", "mainnav", "memnav", "Members", "module");
 		$this->create_left_menu();
 	}
 
@@ -43,10 +43,6 @@ class backend{
 	{
 		switch ($this->sel)
 		{
-			case 'css':
-				$p = 'html/css/';
-				$GLOBALS['sel'] = $_POST['selector'];
-				break;
 			case 'module':
 				$GLOBALS['p'] = 'module/';
 				$GLOBALS['sel'] = $this->sel;
@@ -65,14 +61,18 @@ class backend{
 					$this->i++;
 				}
 				break;
+			case 'Templates':
+				$GLOBALS['p'] = 'html/template/';
+			case 'css':
+				if ($this->sel == 'css') {$GLOBALS['p'] = 'html/css/';}
 			case 'content':
-				$GLOBALS['p'] = 'html/content/';
+				if ($this->sel == 'content') {$GLOBALS['p'] = 'html/content/';}
 				$GLOBALS['sel'] = $this->sel;
 				$this->left_menu[$this->i] = '<form action="?site=admin" method="POST">';
 				$this->left_menu[$this->i] .= '<input type="hidden" name="selector" value="'.$GLOBALS['sel'].'"/>';
 				$this->left_menu[$this->i] .= '<input type="hidden" name="path" value="'.$GLOBALS['p'].'"/>';
 				$this->left_menu[$this->i] .= '<input type="submit" name="select" value="Neu" />';
-				$this->left_menu[$this->i] .= '</form><br><br>';
+				$this->left_menu[$this->i] .= '</form><br>';
 				$this->i++;
 				$dir = scandir($GLOBALS['p']);
 				foreach ($dir as $files)
@@ -100,10 +100,6 @@ class backend{
 				break;
 			case 'Members':
 				$GLOBALS['p'] = 'module/members/members.index.html';
-				$GLOBALS['sel'] = $this->sel;
-				break;
-			case 'Templates':
-				$GLOBALS['p'] = 'html/template/';
 				$GLOBALS['sel'] = $this->sel;
 				break;
 			default:
@@ -134,11 +130,14 @@ class backend_filehandler
 		}
 	}
 
-	public function show()
+	private function show()
 	{
 		switch ($_POST['selector']) {
 			case 'mainnav':
 			case 'memnav':
+				echo 'navi';
+				include $GLOBALS['p'];
+				break;
 			case 'Members':
 				include $GLOBALS['p'];
 			break;

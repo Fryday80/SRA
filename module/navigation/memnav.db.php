@@ -2,6 +2,7 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'memnav.db.php')
 {exit('This page may not be called directly !'); }
 
+
 $working_db = 'membernav';
 $working_set = 'memnav';
 

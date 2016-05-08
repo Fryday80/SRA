@@ -38,29 +38,21 @@ class Member_Manager {
         foreach ($array_of_datas as $dataVOs){
             $i = 0;
             $$dataVOs = $this->$dataVOs;
-            if ($dataVOs == 'logindata' OR $dataVOs == 'memberdata') {
-                foreach ($$dataVOs as $key1 => $value1) {
-                    foreach ($value1 as $key2 => $value2) {
+            foreach ($$dataVOs as $key1 => $value1) {
+                foreach ($value1 as $key2 => $value2) {
+                    if ($dataVOs == 'roledata'){
+                        if ($value2 !== NULL) {
+                            $result[$dataVOs][$i][$key2] = $value2;
+                        }
+                    }else {
                         $result[$dataVOs][$i][$key2] = $value2;
                     }
-                    $i++;
                 }
-            }
-            if ($dataVOs == 'roledata') {
-                bugfix('roledata');
-                foreach ($$dataVOs as $key1 => $value1) {
-                    foreach ($value1 as $key2 => $value2) {
-                        $result[$dataVOs][$i][$key2] = $value2;
-                        bugfix ('begin');
-                        print_r ($key1);
-                        bugfix ('end');
-                    }
-                    $i++;
-                }
+                $i++;
             }
         }
         bugfix('bigone');
-        print_r ($result);
+        //print_r ($result);
         return $result;
     }
     //@todo memberliste erstellen
