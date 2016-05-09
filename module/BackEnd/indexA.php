@@ -69,6 +69,7 @@ jetzt ();
 				</div>
 				<div id="middle1" Style="background: none;">
 <?php
+				
 				$backend_files = new backend_filehandler();
 				$alternate_array = array ('mainnav','memnav','Members');
 				if (isset ($_POST['selector']) AND in_array($_POST['selector'], $alternate_array) )
