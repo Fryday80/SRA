@@ -77,17 +77,18 @@ class DataAccessObject
 			$values = '';
 			foreach ($data as $key => $value){
 				if ($i < $count) {
-					$keys = $keys . ' ' . $key . ',';
+					$keys = $keys . ' `' . $key . '`,';
 					$values = $values . " '" . $value . "',";
 					$i++;
 				}else{
-					$keys = $keys . ' ' . $key;
+					$keys = $keys . ' `' . $key.'`';
 					$values = $values . " '" . $value."'";
 				}
 			}
-			$sql = "INSERT INTO `$this->tableName` (".$keys.") VALUES (".$values.")";
+			$sql = "INSERT INTO `$this->tableName` (".$keys.") VALUES (".$values.");";
 			bugfix ($sql);
-			$insert = $this->run_sql($sql);
+			$db_erg = mysqli_query(self::$dbLink, $sql);
+			//$insert = $this->run_sql($sql);
 		}
 	}
 

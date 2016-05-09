@@ -138,6 +138,8 @@ class backend_Navigation_Data
 		if ($this->select == $this->selector2){ $insert = new MembersNavigationDAO();}
 		print_r ($_POST);
 		br();
+		print_r ($save_array);
+		br();
 		bugfix('backend New NAV Insert');
 		$insert->insert($save_array);
 	}
