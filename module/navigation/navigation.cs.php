@@ -27,6 +27,7 @@ class NavigationDAO extends DataAccessObject{
 			return $data;
 		}
 	}
+	/*
 	protected function re_arrange($array){
 		$i=0;
 		$result = array();
@@ -37,6 +38,7 @@ class NavigationDAO extends DataAccessObject{
 		}
 		return $result;
 	}
+	*/
 }
 
 class MembersNavigationDAO extends DataAccessObject{
@@ -62,6 +64,7 @@ class MembersNavigationDAO extends DataAccessObject{
 			return $data;
 		}
 	}
+	/*
 	protected function re_arrange($array){
 		$i=0;
 		$result = array();
@@ -72,15 +75,17 @@ class MembersNavigationDAO extends DataAccessObject{
 		}
 		return $result;
 	}
+	*/
 }
 
 class NavVO extends ValueObject {
-	public $position;
+	public $position, $id;
 	public $name;
 	public $link;
 
-	function __construct($dao, $id = null, $position = null, $name = null, $link = null) {
+	function __construct($dao, $id, $position = null, $name = null, $link = null) {
 		parent::setID($dao, $id);
+		$this->id = $id;
 		$this->name = $name;
 		$this->link = $link;
 		$this->position = $position;
@@ -88,13 +93,14 @@ class NavVO extends ValueObject {
 }
 
 class MemNavVO extends ValueObject {
-	public $role;
+	public $role, $id;
 	public $position;
 	public $name;
 	public $link;
 
 	function __construct($dao, $id = null, $position= null, $name = null, $link = NULL, $role = null) {
 		parent::setID($dao, $id);
+		$this->id = $id;
 		$this->name = $name;
 		$this->role = $role;
 		$this->position = $position;
