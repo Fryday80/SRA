@@ -67,7 +67,7 @@ class backend_Navigation_Data
 				$GLOBALS['roleswitch']= FALSE;
 			}
 		}
-		bugfix ('final array<br>');
+		bugfix ('final array<br>', 5);
 		//print_r($array);
 		//ksort($array);
 		$GLOBALS['navarray'] = $array;
@@ -77,12 +77,8 @@ class backend_Navigation_Data
 	{
 		foreach ($items as $key => $value)	{
 			foreach ($value as $key2 => $value2) {
-			/*	bugfix();
-				print_r($key2);
-				br();
-				print_r($value2);
-				br();
-			*/
+			bugfix('makeup_roles', 5);
+				
 					if ($key2 == 'role_nr') {
 						$nr = $value2;
 					}
@@ -102,9 +98,7 @@ class backend_Navigation_Data
 				$array2[$nr]['leader_1'] = $l1;
 				$array2[$nr]['leader_2'] = $l2;
 		}
-		bugfix ('final array<br>');
-		//print_r($array2);
-		//ksort($array);
+		bugfix ('final array<br>', 5);
 		$GLOBALS['roles_overwiew'] = $array2;
 
 	}
@@ -140,7 +134,7 @@ class backend_Navigation_Data
 		br();
 		print_r ($save_array);
 		br();
-		bugfix('backend New NAV Insert');
+		bugfix('backend New NAV Insert', 5);
 		$insert->insert($save_array);
 	}
 }
@@ -161,67 +155,67 @@ class backend_Navigation_View {
 		//$selections =
 		$this->create_selectors();
 		$position_count= 1;
+		$newid = 1;
 		if ($GLOBALS['roleswitch']) {
-			$newid = 1;
-			//print_r ($this->navigation_array);
-			for ($i = 0; $i < '10'; $i++) {
-				if (isset ($this->navigation_array[$i]))
-				{
 
-					echo '<table><tr><th colspan="4">User_Power '.$i.'</th></tr>';
-					echo '<tr><td>id</td><td>Name</td><td>Link</td><td>Position</td><td>Sichtbarkeit</td><td></td></tr>';
-					foreach ($this->navigation_array[$i] as $key => $value)
-					{
-						$count = count ($this->navigation_array[$i]);
-						$newid = $newid+$count;
-						$position = $key;
-						$this->position_array[$position_count] = $position;
-						$position_count++;
-						$name = $this->navigation_array[$i][$key]['name'];
-						$link = $this->navigation_array[$i][$key]['link'];
-						$id = $this->navigation_array[$i][$key]['id'];
-						$role = $i;
-						?>
-						<tr><form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
-						<td>
-							<input type="hidden" name="selector" value="<?php echo $GLOBALS['selector'];?>"/>
-							<input type="text" style="width:25px;" name="navid" value="<?php echo $id;?>" required readonly/>
-							<input type="hidden" name="navcount" value="<?php echo $i;?>" required/>
-						</td>
-						<td><input type="text" name="navname" value="<?php echo $name;?>" required/></td>
-						<td><input type="text" style="width:250px;" name="navlink" value="<?php echo $link;?>" required/></td>
-								<td><select name="navpos" size=""1">
-									<?php
-									$selector = 'position';
-									for ($i = 0; $i < '20'; $i++){
-										if ($i == $position ) {$var = 'option'.$i.'s';
-											if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
-										else{$var = 'option'.$i;
-											if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
-									}
-									?>
-									</select></td>
-						<td><select name="navrole" size="1">
+			ksort($this->navigation_array);
+			foreach ($this->navigation_array as $role => $roleUser) {
+
+				echo '<table><tr><th colspan="4">User_Power '.$role.'</th></tr>';
+				echo '<tr><td>id</td><td>Name</td><td>Link</td><td>Position</td><td>Sichtbarkeit</td><td></td></tr>';
+
+				foreach ($roleUser as $key => $value)
+				{
+					$newid++;
+					$position_count++;
+					$position = $key;
+					$this->position_array[$position_count] = $position;
+					$name = $value['name'];
+					$link = $value['link'];
+					$id = $value['id'];
+					?>
+					<tr><form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
+							<td>
+								<input type="hidden" name="selector" value="<?php echo $GLOBALS['selector'];?>"/>
+								<input type="text" style="width:25px;" name="navid" value="<?php echo $id;?>" required readonly/>
+								<input type="hidden" name="navcount" value="<?php echo $i;?>" required/>
+							</td>
+							<td><input type="text" name="navname" value="<?php echo $name;?>" required/></td>
+							<td><input type="text" style="width:250px;" name="navlink" value="<?php echo $link;?>" required/></td>
+							<td><select name="navpos" size=""1">
 								<?php
-								$selector = 'roles';
-								for ($i = 0; $i < '10'; $i++){
-									if ($i == $role ) {$var = 'option'.$i.'s';
+								$selector = 'position';// $selector == string
+								for ($i = 0; $i < '20'; $i++){
+									if ($i == $position ) {
+										$var = 'option'.$i.'s';
 										if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
 									else{$var = 'option'.$i;
 										if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
 								}
 								?>
-						</select></td>
-						<td>
-							<input type="hidden" name="savevar" value="<?php echo $id;?>" required/>
-							<input Type="submit" name="save" value="save">
-							<input Type="submit" name="delete" value="L&ouml;schen">
-						</td></form></tr>
-						<?php
-					}
-
+								</select></td>
+							<td><select name="navrole" size="1">
+									<?php
+									$selector = 'roles';
+									for ($i = 0; $i < '10'; $i++){
+										if ($i == $role ) {$var = 'option'.$i.'s';
+											if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
+										else{$var = 'option'.$i;
+											if (isset ($this->selectors_array[$selector][$var])) {echo $this->selectors_array[$selector][$var];}}
+									}
+									?>
+								</select></td>
+							<td>
+								<input type="hidden" name="savevar;
+										if (isset ($this->selectors_array[" value="<?php echo $id;?>" required/>
+								<input Type="submit" name="save" value="save">
+								<input Type="submit" name="delete" value="L&ouml;schen">
+							</td></form></tr>
+					<?php
 				}
+
 			}
+
 			echo '<tr><th colspan="4">Neu</th></tr>';
 			?>
 			<tr><form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
@@ -268,6 +262,7 @@ class backend_Navigation_View {
 			{
 				$position = $key;
 				$this->position_array[$position_count] = $position;
+				$newid++;
 				$position_count++;
 				$name = $this->navigation_array[0][$key]['name'];
 				$link = $this->navigation_array[0][$key]['link'];

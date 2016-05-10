@@ -9,7 +9,7 @@ class DataAccessObject
 
 	static function initDB() {
 		if (DATA_MOCKING) return;
-		bugfix (MYSQL_HOST.'<br>');
+		bugfix (MYSQL_HOST.'<br>', 5);
 		self::$dbLink = mysqli_connect(
 			MYSQL_HOST,
 			MYSQL_BENUTZER,
@@ -86,7 +86,7 @@ class DataAccessObject
 				}
 			}
 			$sql = "INSERT INTO `$this->tableName` (".$keys.") VALUES (".$values.");";
-			bugfix ($sql);
+			bugfix ($sql, 5);
 			$db_erg = mysqli_query(self::$dbLink, $sql);
 			//$insert = $this->run_sql($sql);
 		}

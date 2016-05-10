@@ -1,10 +1,37 @@
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) === 'functions.inc.php'){exit('This page may not be called directly !'); }
 
-function bugfix ($comment = 'here'){
-	if ($GLOBALS['bugfix'] == 'on'){
-	echo 'bugfix '.$comment;
-	br();}
+/**
+ * Zeigt Bugfix, je nach Level
+ * @param string $comment Anzeigestring
+ * @param integer $level des debugs
+ */
+
+function bugfix ($comment = 'here', $level=1){
+	$debug_level = 'bugfix_level'.$level;
+	if ($GLOBALS["$debug_level"] == 'on'){
+		if (is_array($comment)){
+			echo 'bugfix with array:';
+			pre_on();
+			print_r ($comment);
+			pre_off();
+		}elseif (is_object($comment)){
+			echo 'Bugfix with object';
+			pre_on();var_dump($comment);pre_off();
+		}else {
+			echo 'bugfix ' . $comment . ' @ ';
+			br();
+		}
+	}
+}
+
+function pre_on () {
+	echo '<pre>';
+}
+
+function pre_off ()
+{
+	echo '</pre>';
 }
 
 function bugfix_expression ($expression = 'br(2);'){

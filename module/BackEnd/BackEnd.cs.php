@@ -33,7 +33,7 @@ class backend{
 		} else {
 			$this->left_menu[0] = '<form action="?site=admin" method="POST">';
 			$this->left_menu[0] .= '<input type="submit" name="selector" value="home" />';
-			$this->left_menu[0] .= '<input style="width:123px;" type="text" value="'.$this->sel.'" readonly />';
+			$this->left_menu[0] .= '<input style="width:100px;" type="text" value="'.$this->sel.'" readonly />';
 			$this->left_menu[0] .= '</form>';
 			$this->i = 1;
 			$this->switch_all();

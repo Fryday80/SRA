@@ -22,7 +22,7 @@ class NavigationDAO extends DataAccessObject{
 				return false;
 			}
 			//print_r($data);
-			bugfix (88);
+			bugfix (88, 5);
 			//$data2 = $this->re_arrange($data);
 			return $data;
 		}
@@ -154,7 +154,7 @@ class nav_show {
 				$array[$role][$position]['link'] = $link;
 		}
 		ksort($array);
-		//print_r ($array);
+		bugfix ($array, 5);
 		while ($i <= $permission_power) {
 			if (isset($array[$i])) {
 			//	print_r($array[$i]);

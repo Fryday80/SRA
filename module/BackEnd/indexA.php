@@ -25,51 +25,9 @@ jetzt ();
 			</div>
 			<div id="second1">
 				<div id="right1">
-					<?php
-					/*
-					switch ($_POST['selector'])
-					{
-						case 'css':
-						case 'Templates':
-						case 'content':
-
-							echo '<form action="?site=admin" method="POST">';
-							echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
-							echo '<input type="hidden" name="path" value="'.$p.'"/>';
-							echo '<input type="submit" name="select" value="Neu" />';
-							echo '</form>';
-							br ();
-							$dir = scandir($p);
-							foreach ($dir as $files)
-							{
-								if ($files !== "." && $files !== "..")
-								{
-									echo '<form action="?site=admin" method="POST">';
-									echo '<input type="hidden" name="selector" value="'.$sel.'"/>';
-									echo '<input type="hidden" name="path" value="'.$p.'"/>';
-									echo '<input type="submit" name="select" value="'.$files.'" />';
-									echo '</form>';
-								}
-							}
-							break;
-						case 'mainnav':
-						case 'memnav':
-							$sql_roles = "SELECT * FROM `roles` ";
-							$db_roles = mysqli_query($db_link, $sql_roles);
-							while ($daten = mysqli_fetch_array( $db_roles, MYSQL_ASSOC))
-							{
-								$nr = $daten['role_nr'];
-								$desc = $daten['role_desc'];
-								echo "$nr = $desc<br>";
-							}
-							break;
-												
-					}
-					*/?>
 				</div>
 				<div id="middle1" Style="background: none;">
 <?php
-				
 				$backend_files = new backend_filehandler();
 				$alternate_array = array ('mainnav','memnav','Members');
 				if (isset ($_POST['selector']) AND in_array($_POST['selector'], $alternate_array) )
@@ -82,7 +40,6 @@ jetzt ();
 						$backend_show->create_View();
 					}
 				}
-
 ?>
 				</div>
 			</div>

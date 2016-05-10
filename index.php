@@ -3,7 +3,11 @@ ini_set('session.gc_maxlifetime', 1800);
 ini_set('session.gc_divisor', 1);
 session_start();
 
-$bugfix = 'on';
+$bugfix_level1 = 'on';
+$bugfix_level2 = 'on';
+$bugfix_level3 = 'on';
+$bugfix_level4 = 'on';
+$bugfix_level5 = 'off';
 include_once 'common.php';
 
 include_once 'html/template/header.php';
