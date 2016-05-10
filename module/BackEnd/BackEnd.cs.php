@@ -99,7 +99,7 @@ class backend{
 				$GLOBALS['nav'] = 'mem';
 				break;
 			case 'Members':
-				$GLOBALS['p'] = 'module/members/members.index.html';
+				$GLOBALS['p'] = 'module/members/members.index.php';
 				$GLOBALS['sel'] = $this->sel;
 				break;
 			default:
