@@ -3,11 +3,12 @@ ini_set('session.gc_maxlifetime', 1800);
 ini_set('session.gc_divisor', 1);
 session_start();
 
-$bugfix_level1 = 'on';
+$bugfix_level1 = 'off';
 $bugfix_level2 = 'on';
-$bugfix_level3 = 'on';
-$bugfix_level4 = 'on';
+$bugfix_level3 = 'off';
+$bugfix_level4 = 'off';
 $bugfix_level5 = 'off';
+require '/kint-master/Kint.class.php';
 include_once 'common.php';
 
 include_once 'html/template/header.php';

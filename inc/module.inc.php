@@ -9,4 +9,5 @@ while (($file = readdir($handle)) !== false) {
 			include($path);
 	}
 }
+
 closedir($handle);

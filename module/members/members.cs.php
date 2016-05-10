@@ -1,5 +1,5 @@
 <?php
-class Member_Manager {
+class Member_Manager_Old {
     protected $all_tables = array();
     protected $selectortable;
     public $logindata = array();
