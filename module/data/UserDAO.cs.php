@@ -52,6 +52,14 @@ class UserDAO extends DataAccessObject {
 			return $data;
 		}
 	}
+
+	function get_members_array(){
+		$mem_VO = $this->get_all_members();
+		$pure_array = $mem_VO; // nur wegen den Fehlermeldungen
+		// foreach und co.
+		// => $pure_array
+		return $pure_array;
+	}
 }
 
 class UserVO extends ValueObject {

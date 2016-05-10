@@ -31,8 +31,8 @@ class MemberManagerDAO extends DataAccessObject {
     }
 
     protected function cleanup_VOs ($result_VO) {
-        foreach ($result_VO as $key => $value){
-            foreach ($value as $key1 => $value1) {
+        foreach ($result_VO as $key => $value){     // $key hat den wert xyDAO je nach dem was es ist z.B. UserDAO
+            foreach ($value as $key1 => $value1) {     // foreach auf $key geht ned ?? das ergibt so kein ergebnis
                 print_r($value);
                 print ('#########<br>');
             }
