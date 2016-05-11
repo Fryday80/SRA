@@ -55,11 +55,6 @@ class MemberManager {
         return $result;
     }
 }
-function dump($value) {
-    pre_on();
-    var_dump($value);
-    pre_off();
-}
 class MemberManager_Views {
     protected $dao;
 
@@ -71,15 +66,32 @@ class MemberManager_Views {
 
     function show_list($of_kind){
         $list = $this->dao->create_list($of_kind);
-        foreach ($list as $key => $value){
-            d($value);
-            echo '<table>'; //hier iterierst du aber über ein array
-            echo '<tr><th colspan="3">' .$key. '</th></tr>';
-            echo '<tr><th>Bezeichnung</th><th>Beschreibung</th><th>Wert</th></tr>';
-            foreach ($value[0] as $key1 => $value1){
-                echo '<tr><td>' .$key1. '</td><td></td><td>' .$value1. '</td></tr>';
+        
+
+        $count = count($list['login']);
+        bugfix ($count,3);
+        for ($i=1; $i <= $count; $i++) 
+        {
+            foreach ($list as $key => $value)
+            {
+                //d($value);
+                echo '<table>'; //hier iterierst du aber über ein array
+                echo '<tr><th colspan="3">' . $key . '</th></tr>';
+                foreach ($value as $key0) {
+                    //d($key0);
+                    echo '<tr><th>Bezeichnung</th><th>Beschreibung</th><th>Wert</th></tr>';
+                    foreach ($key0 as $key1 => $value1) {
+                        d($key0);
+                        if ($key1 == ['usr_id'] AND $value1 == $i) {
+
+                            echo '<tr><td>' . $key1 . '</td><td></td><td>';
+                            p_textfield('text', $key . '_' . $key1, $value1, '', 1);
+                            echo '</td></tr>';
+                        }
+                    }
+                }
+                echo '</table>';
             }
-            echo '</table>';
         }
         pre_on();
         bugfix ('MM_Views, f__ show_list');

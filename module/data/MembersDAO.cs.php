@@ -31,7 +31,7 @@ class MembersDAO extends DataAccessObject
 		if (DATA_MOCKING) {
 			return $this->dummy[0];
 		} else {
-			$data = $this->wholeTable();
+			$data = $this->wholeTable("ORDER BY `" .$this->tableName. "`.`usr_id` ASC ");
 			if (count($data) < 1) {
 				return false;
 			}

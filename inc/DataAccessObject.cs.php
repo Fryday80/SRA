@@ -27,8 +27,11 @@ class DataAccessObject
 		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "` WHERE `" . $valueName . "` = '" . $value . "'");
 	}
 
-	protected function wholeTable (){
-		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "` ");
+	protected function wholeTable ($order_by = ''){
+		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "` ".$order_by);
+	}
+	protected function wholeTableByUsrID (){
+		return $this->getBySqlQuery("SELECT * FROM `" . $this->tableName . "`  ");
 	}
 
 	protected function run_sql($sql){

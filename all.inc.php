@@ -6,5 +6,6 @@ include_once 'inc/functions.inc.php';
 require_once ('inc/db.inc.php');
 include_once 'inc/DataAccessObject.cs.php';
 include_once 'inc/module.inc.php';
+require 'inc/table.func.php';
 
 bugfix();
