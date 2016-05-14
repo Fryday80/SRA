@@ -10,3 +10,6 @@ function p_textfield ($type, $name, $value, $placeholder = '', $required = 0, $s
 
     echo '<input type="' .$type. '" ' .$style. ' name="' .$name. '" value="' .$value. '" ' .$required. ' />';
 }
+
+
+$required_array = array ( "usr_id");

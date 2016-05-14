@@ -77,17 +77,31 @@ class MemberManager_Views {
                 //d($value);
                 echo '<table>'; //hier iterierst du aber über ein array
                 echo '<tr><th colspan="3">' . $key . '</th></tr>';
-                foreach ($value as $key0) {
+                echo '<tr><th>Bezeichnung</th><th>Wert</th><th></th></tr>';
+                foreach ($value as $key0 => $value0) {
                     //d($key0);
-                    echo '<tr><th>Bezeichnung</th><th>Beschreibung</th><th>Wert</th></tr>';
-                    foreach ($key0 as $key1 => $value1) {
-                        d($key0);
-                        if ($key1 == ['usr_id'] AND $value1 == $i) {
 
-                            echo '<tr><td>' . $key1 . '</td><td></td><td>';
-                            p_textfield('text', $key . '_' . $key1, $value1, '', 1);
-                            echo '</td></tr>';
+                    foreach ($value[$key0] as $key1 => $value1) {
+                        // $key 0 sind die verschiedenen Einträge im VO beginnend mit 0
+                        $required = '';
+                        if (in_array($key1, $GLOBALS['required_array'])) {
+                            $required = 'required';
                         }
+                    //    d($value0);
+                    //    if ($key0['usr_id'] == $i) {
+
+                            echo '<tr><td style="width: 123px;">' . $key1 . '</td>';
+                            echo '<td style="width: 300px;">';
+                                echo '<input type="text" name="' .$key1. '" value="';
+                                    echo $value1;
+                                echo '" ' .$required. ' style="width: 250px;" />';
+                            echo '</td><td> save & delete';
+                        echo $key0['usr_id']. '####';
+                   // echo '$key ' .$key. '<br>$key0 ' .
+                    //    $key1.  '<br>$value0 <br>';
+                    //       p_textfield('text', $key . '_' . $key0, $value0, '', 1);
+                            echo '</td></tr>';
+                     //   }
                     }
                 }
                 echo '</table>';
